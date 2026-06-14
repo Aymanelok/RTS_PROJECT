@@ -1,0 +1,197 @@
+[0.000000] (-) TimerEvent: {}
+[0.005101] (smart_traffic) JobQueued: {'identifier': 'smart_traffic', 'dependencies': OrderedDict()}
+[0.007657] (smart_traffic) JobStarted: {'identifier': 'smart_traffic'}
+[0.082518] (-) TimerEvent: {}
+[0.191977] (-) TimerEvent: {}
+[0.294756] (-) TimerEvent: {}
+[0.403603] (-) TimerEvent: {}
+[0.504939] (-) TimerEvent: {}
+[0.608320] (-) TimerEvent: {}
+[0.718091] (-) TimerEvent: {}
+[0.827607] (-) TimerEvent: {}
+[0.937184] (-) TimerEvent: {}
+[1.041985] (-) TimerEvent: {}
+[1.151467] (-) TimerEvent: {}
+[1.260918] (-) TimerEvent: {}
+[1.366859] (-) TimerEvent: {}
+[1.476368] (-) TimerEvent: {}
+[1.582048] (-) TimerEvent: {}
+[1.688348] (-) TimerEvent: {}
+[1.794336] (-) TimerEvent: {}
+[1.899095] (-) TimerEvent: {}
+[2.009029] (-) TimerEvent: {}
+[2.115469] (-) TimerEvent: {}
+[2.267621] (-) TimerEvent: {}
+[2.402345] (-) TimerEvent: {}
+[2.512143] (-) TimerEvent: {}
+[2.619355] (-) TimerEvent: {}
+[2.726122] (-) TimerEvent: {}
+[2.848112] (-) TimerEvent: {}
+[2.963520] (-) TimerEvent: {}
+[3.069960] (-) TimerEvent: {}
+[3.211299] (-) TimerEvent: {}
+[3.314259] (-) TimerEvent: {}
+[3.423784] (-) TimerEvent: {}
+[3.533746] (-) TimerEvent: {}
+[3.642693] (-) TimerEvent: {}
+[3.744402] (-) TimerEvent: {}
+[3.849821] (-) TimerEvent: {}
+[3.959376] (-) TimerEvent: {}
+[4.069103] (-) TimerEvent: {}
+[4.178506] (-) TimerEvent: {}
+[4.288248] (-) TimerEvent: {}
+[4.397583] (-) TimerEvent: {}
+[4.506871] (-) TimerEvent: {}
+[4.611444] (-) TimerEvent: {}
+[4.720791] (-) TimerEvent: {}
+[4.830315] (-) TimerEvent: {}
+[4.939686] (-) TimerEvent: {}
+[5.043885] (-) TimerEvent: {}
+[5.153774] (-) TimerEvent: {}
+[5.263219] (-) TimerEvent: {}
+[5.372772] (-) TimerEvent: {}
+[5.482319] (-) TimerEvent: {}
+[5.591977] (-) TimerEvent: {}
+[5.700670] (-) TimerEvent: {}
+[5.810025] (-) TimerEvent: {}
+[5.915975] (-) TimerEvent: {}
+[6.019911] (-) TimerEvent: {}
+[6.125737] (-) TimerEvent: {}
+[6.231376] (-) TimerEvent: {}
+[6.340578] (-) TimerEvent: {}
+[6.449759] (-) TimerEvent: {}
+[6.559008] (-) TimerEvent: {}
+[6.668954] (-) TimerEvent: {}
+[6.778487] (-) TimerEvent: {}
+[6.884011] (-) TimerEvent: {}
+[6.988691] (-) TimerEvent: {}
+[7.094555] (-) TimerEvent: {}
+[7.203883] (-) TimerEvent: {}
+[7.313299] (-) TimerEvent: {}
+[7.418595] (-) TimerEvent: {}
+[7.525252] (-) TimerEvent: {}
+[7.630677] (-) TimerEvent: {}
+[7.736282] (-) TimerEvent: {}
+[7.769292] (smart_traffic) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', 'build/smart_traffic', 'build', '--build-base', '/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build', 'install', '--record', '/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/mnt/c/Users/User/Downloads/v4smartcontr', 'env': {'GZ_SIM_SYSTEM_PLUGIN_PATH': '/opt/ros/humble/lib', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/humble/share/as2_gazebo_assets/worlds:/opt/ros/humble/share/as2_gazebo_assets/models', 'USER': 'abir', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/abir', 'OLDPWD': '/home/abir', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'WSL_DISTRO_NAME': 'Ubuntu-22.04', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/mnt/c/Users/User/Downloads/v4smartcontr/install:/home/abir/agri_ai_robot_ws/install:/mnt/c/Users/User/Downloads/smart_traffic_controller/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'abir', 'NAME': 'DESKTOP-UN3EKUI', 'WSL_INTEROP': '/run/WSL/1284_interop', 'PULSE_SERVER': 'unix:/mnt/wslg/PulseServer', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm-256color', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/bin:/home/abir/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/WindowsApps/MicrosoftCorporationII.WindowsSubsystemForLinux_2.4.13.0_x64__8wekyb3d8bbwe:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/xampp1/htdocs:/mnt/c/Program Files/Git/cmd:/mnt/c/xampa/php-8.3.7:/mnt/c/wamp64/bin/php/php8.3.6:/mnt/c/Program Files/nodejs/:/mnt/c/Users/User/.local/bin:/mnt/c/Users/User/AppData/Local/Programs/Python/Python313/Scripts/:/mnt/c/Users/User/AppData/Local/Programs/Python/Python313/:/mnt/c/Users/User/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/User/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/User/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/php-8.3.7:/mnt/c/xampa/php-8.3.7:/mnt/c/xampp/php-8.3.7:/mnt/c/xampp1/php-8.3.7:/mnt/c/Program Files (x86)/composer:/mnt/c/Users/User/AppData/Roaming/Composer/vendor/bin:/mnt/c/Users/User/AppData/Local/Programs/Antigravity/bin:/mnt/c/Users/User/AppData/Roaming/npm:/mnt/c/Users/User/AppData/Local/Programs/Ollama:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000/', 'DISPLAY': ':0', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic:/home/abir/agri_ai_robot_ws/install/smart_traffic_controller:/home/abir/agri_ai_robot_ws/install/bringup:/home/abir/agri_ai_robot_ws/install/simulation:/home/abir/agri_ai_robot_ws/install/robot_description:/home/abir/agri_ai_robot_ws/install/perception:/home/abir/agri_ai_robot_ws/install/navigation:/home/abir/agri_ai_robot_ws/install/control:/home/abir/agri_ai_robot_ws/install/ai_models:/mnt/c/Users/User/Downloads/smart_traffic_controller/install/smart_traffic_controller:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GZ_VERSION': 'fortress', 'PWD': '/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic', 'TURTLEBOT3_MODEL': 'waffle', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages:/mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages:/home/abir/agri_ai_robot_ws/install/smart_traffic_controller/lib/python3.10/site-packages:/home/abir/agri_ai_robot_ws/build/bringup:/home/abir/agri_ai_robot_ws/install/bringup/lib/python3.10/site-packages:/home/abir/agri_ai_robot_ws/build/simulation:/home/abir/agri_ai_robot_ws/install/simulation/lib/python3.10/site-packages:/home/abir/agri_ai_robot_ws/build/perception:/home/abir/agri_ai_robot_ws/install/perception/lib/python3.10/site-packages:/home/abir/agri_ai_robot_ws/build/navigation:/home/abir/agri_ai_robot_ws/install/navigation/lib/python3.10/site-packages:/home/abir/agri_ai_robot_ws/build/control:/home/abir/agri_ai_robot_ws/install/control/lib/python3.10/site-packages:/home/abir/agri_ai_robot_ws/build/ai_models:/home/abir/agri_ai_robot_ws/install/ai_models/lib/python3.10/site-packages:/mnt/c/Users/User/Downloads/smart_traffic_controller/install/smart_traffic_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'WSL2_GUI_APPS_ENABLED': '1', 'HOSTTYPE': 'x86_64', 'CMAKE_PREFIX_PATH': '/home/abir/agri_ai_robot_ws/install/robot_description', 'WSLENV': ''}, 'shell': False}
+[7.836725] (-) TimerEvent: {}
+[7.943042] (-) TimerEvent: {}
+[8.052272] (-) TimerEvent: {}
+[8.161650] (-) TimerEvent: {}
+[8.270973] (-) TimerEvent: {}
+[8.380204] (-) TimerEvent: {}
+[8.489382] (-) TimerEvent: {}
+[8.597714] (-) TimerEvent: {}
+[8.706985] (-) TimerEvent: {}
+[8.816564] (-) TimerEvent: {}
+[8.921189] (-) TimerEvent: {}
+[9.030413] (-) TimerEvent: {}
+[9.139540] (-) TimerEvent: {}
+[9.248784] (-) TimerEvent: {}
+[9.358136] (-) TimerEvent: {}
+[9.466258] (-) TimerEvent: {}
+[9.575879] (-) TimerEvent: {}
+[9.683647] (-) TimerEvent: {}
+[9.792980] (-) TimerEvent: {}
+[9.897373] (-) TimerEvent: {}
+[10.006483] (-) TimerEvent: {}
+[10.115688] (-) TimerEvent: {}
+[10.225097] (-) TimerEvent: {}
+[10.330665] (-) TimerEvent: {}
+[10.436632] (-) TimerEvent: {}
+[10.542208] (-) TimerEvent: {}
+[10.651417] (-) TimerEvent: {}
+[10.760651] (-) TimerEvent: {}
+[10.866494] (-) TimerEvent: {}
+[10.867298] (smart_traffic) StdoutLine: {'line': b'running egg_info\n'}
+[10.880092] (smart_traffic) StdoutLine: {'line': b'creating build/smart_traffic/smart_traffic.egg-info\n'}
+[10.888773] (smart_traffic) StdoutLine: {'line': b'writing build/smart_traffic/smart_traffic.egg-info/PKG-INFO\n'}
+[10.924402] (smart_traffic) StdoutLine: {'line': b'writing dependency_links to build/smart_traffic/smart_traffic.egg-info/dependency_links.txt\n'}
+[10.944258] (smart_traffic) StdoutLine: {'line': b'writing entry points to build/smart_traffic/smart_traffic.egg-info/entry_points.txt\n'}
+[10.956879] (smart_traffic) StdoutLine: {'line': b'writing requirements to build/smart_traffic/smart_traffic.egg-info/requires.txt\n'}
+[10.964290] (smart_traffic) StdoutLine: {'line': b'writing top-level names to build/smart_traffic/smart_traffic.egg-info/top_level.txt\n'}
+[10.966529] (-) TimerEvent: {}
+[10.987784] (smart_traffic) StdoutLine: {'line': b"writing manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'\n"}
+[11.070611] (smart_traffic) StdoutLine: {'line': b"reading manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'\n"}
+[11.072915] (-) TimerEvent: {}
+[11.173786] (-) TimerEvent: {}
+[11.206769] (smart_traffic) StdoutLine: {'line': b"writing manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'\n"}
+[11.218419] (smart_traffic) StdoutLine: {'line': b'running build\n'}
+[11.221523] (smart_traffic) StdoutLine: {'line': b'running build_py\n'}
+[11.235969] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build\n'}
+[11.240539] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib\n'}
+[11.246313] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic\n'}
+[11.269203] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic/actuator_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic\n'}
+[11.273981] (-) TimerEvent: {}
+[11.332974] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic/controller_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic\n'}
+[11.377398] (-) TimerEvent: {}
+[11.382107] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic/dashboard_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic\n'}
+[11.442092] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic/sensor_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic\n'}
+[11.478014] (-) TimerEvent: {}
+[11.513172] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic/__init__.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic\n'}
+[11.548236] (smart_traffic) StdoutLine: {'line': b'running install\n'}
+[11.550129] (smart_traffic) StdoutLine: {'line': b'running install_lib\n'}
+[11.578610] (-) TimerEvent: {}
+[11.602483] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic\n'}
+[11.645670] (smart_traffic) StdoutLine: {'line': b'copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/actuator_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic\n'}
+[11.681302] (-) TimerEvent: {}
+[11.743439] (smart_traffic) StdoutLine: {'line': b'copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/controller_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic\n'}
+[11.782284] (-) TimerEvent: {}
+[11.891477] (-) TimerEvent: {}
+[11.973328] (smart_traffic) StdoutLine: {'line': b'copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/dashboard_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic\n'}
+[11.992985] (-) TimerEvent: {}
+[12.098159] (smart_traffic) StdoutLine: {'line': b'copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/sensor_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic\n'}
+[12.100542] (-) TimerEvent: {}
+[12.176471] (smart_traffic) StdoutLine: {'line': b'copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/__init__.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic\n'}
+[12.202690] (-) TimerEvent: {}
+[12.266291] (smart_traffic) StdoutLine: {'line': b'byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/actuator_node.py to actuator_node.cpython-310.pyc\n'}
+[12.305766] (-) TimerEvent: {}
+[12.363981] (smart_traffic) StdoutLine: {'line': b'byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/controller_node.py to controller_node.cpython-310.pyc\n'}
+[12.409264] (-) TimerEvent: {}
+[12.463590] (smart_traffic) StdoutLine: {'line': b'byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/dashboard_node.py to dashboard_node.cpython-310.pyc\n'}
+[12.512883] (-) TimerEvent: {}
+[12.573439] (smart_traffic) StdoutLine: {'line': b'byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/sensor_node.py to sensor_node.cpython-310.pyc\n'}
+[12.616267] (-) TimerEvent: {}
+[12.675376] (smart_traffic) StdoutLine: {'line': b'byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/__init__.py to __init__.cpython-310.pyc\n'}
+[12.720217] (-) TimerEvent: {}
+[12.852347] (-) TimerEvent: {}
+[12.898044] (smart_traffic) StdoutLine: {'line': b'running install_data\n'}
+[12.920581] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index\n'}
+[12.926830] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index/resource_index\n'}
+[12.935442] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index/resource_index/packages\n'}
+[12.953728] (-) TimerEvent: {}
+[12.959426] (smart_traffic) StdoutLine: {'line': b'copying resource/smart_traffic -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index/resource_index/packages\n'}
+[13.020035] (smart_traffic) StdoutLine: {'line': b'copying package.xml -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic\n'}
+[13.056518] (-) TimerEvent: {}
+[13.060859] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic/launch\n'}
+[13.090195] (smart_traffic) StdoutLine: {'line': b'copying launch/traffic_launch.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic/launch\n'}
+[13.139707] (smart_traffic) StdoutLine: {'line': b'creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic/config\n'}
+[13.146450] (smart_traffic) StdoutLine: {'line': b'running install_egg_info\n'}
+[13.157095] (-) TimerEvent: {}
+[13.202301] (smart_traffic) StdoutLine: {'line': b'Copying build/smart_traffic/smart_traffic.egg-info to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic-1.0.0-py3.10.egg-info\n'}
+[13.261203] (-) TimerEvent: {}
+[13.367488] (-) TimerEvent: {}
+[13.476988] (-) TimerEvent: {}
+[13.586763] (-) TimerEvent: {}
+[13.695922] (-) TimerEvent: {}
+[13.805244] (-) TimerEvent: {}
+[13.874215] (smart_traffic) StdoutLine: {'line': b'running install_scripts\n'}
+[13.905604] (-) TimerEvent: {}
+[14.011928] (-) TimerEvent: {}
+[14.117538] (-) TimerEvent: {}
+[14.154166] (smart_traffic) StdoutLine: {'line': b'Installing actuator_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[14.179012] (smart_traffic) StdoutLine: {'line': b'Installing controller_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[14.211646] (smart_traffic) StdoutLine: {'line': b'Installing dashboard_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[14.218038] (-) TimerEvent: {}
+[14.245262] (smart_traffic) StdoutLine: {'line': b'Installing sensor_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[14.280815] (smart_traffic) StdoutLine: {'line': b"writing list of installed files to '/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/install.log'\n"}
+[14.321323] (-) TimerEvent: {}
+[14.344076] (smart_traffic) CommandEnded: {'returncode': 0}
+[14.423074] (-) TimerEvent: {}
+[14.532434] (-) TimerEvent: {}
+[14.639502] (-) TimerEvent: {}
+[14.745338] (-) TimerEvent: {}
+[14.854540] (-) TimerEvent: {}
+[14.963129] (-) TimerEvent: {}
+[15.067569] (-) TimerEvent: {}
+[15.111911] (smart_traffic) JobEnded: {'identifier': 'smart_traffic', 'rc': 0}
+[15.144564] (-) EventReactorShutdown: {}

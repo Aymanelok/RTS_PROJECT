@@ -1,0 +1,52 @@
+[7.785s] Invoking command in '/mnt/c/Users/User/Downloads/v4smartcontr': PYTHONPATH=/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/smart_traffic build --build-base /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build install --record /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/install.log --single-version-externally-managed install_data
+[10.860s] running egg_info
+[10.872s] creating build/smart_traffic/smart_traffic.egg-info
+[10.882s] writing build/smart_traffic/smart_traffic.egg-info/PKG-INFO
+[10.918s] writing dependency_links to build/smart_traffic/smart_traffic.egg-info/dependency_links.txt
+[10.937s] writing entry points to build/smart_traffic/smart_traffic.egg-info/entry_points.txt
+[10.949s] writing requirements to build/smart_traffic/smart_traffic.egg-info/requires.txt
+[10.957s] writing top-level names to build/smart_traffic/smart_traffic.egg-info/top_level.txt
+[10.980s] writing manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'
+[11.063s] reading manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'
+[11.200s] writing manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'
+[11.211s] running build
+[11.215s] running build_py
+[11.228s] creating /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build
+[11.233s] creating /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib
+[11.239s] creating /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[11.261s] copying smart_traffic/actuator_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[11.325s] copying smart_traffic/controller_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[11.374s] copying smart_traffic/dashboard_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[11.435s] copying smart_traffic/sensor_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[11.506s] copying smart_traffic/__init__.py -> /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[11.540s] running install
+[11.542s] running install_lib
+[11.595s] creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic
+[11.639s] copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/actuator_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic
+[11.736s] copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/controller_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic
+[11.966s] copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/dashboard_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic
+[12.091s] copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/sensor_node.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic
+[12.169s] copying /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/__init__.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic
+[12.259s] byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/actuator_node.py to actuator_node.cpython-310.pyc
+[12.357s] byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/controller_node.py to controller_node.cpython-310.pyc
+[12.459s] byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/dashboard_node.py to dashboard_node.cpython-310.pyc
+[12.565s] byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/sensor_node.py to sensor_node.cpython-310.pyc
+[12.668s] byte-compiling /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic/__init__.py to __init__.cpython-310.pyc
+[12.891s] running install_data
+[12.913s] creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index
+[12.919s] creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index/resource_index
+[12.928s] creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index/resource_index/packages
+[12.953s] copying resource/smart_traffic -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/ament_index/resource_index/packages
+[13.013s] copying package.xml -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic
+[13.054s] creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic/launch
+[13.083s] copying launch/traffic_launch.py -> /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic/launch
+[13.132s] creating /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/share/smart_traffic/config
+[13.139s] running install_egg_info
+[13.195s] Copying build/smart_traffic/smart_traffic.egg-info to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages/smart_traffic-1.0.0-py3.10.egg-info
+[13.867s] running install_scripts
+[14.147s] Installing actuator_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[14.173s] Installing controller_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[14.204s] Installing dashboard_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[14.238s] Installing sensor_node script to /mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[14.273s] writing list of installed files to '/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/install.log'
+[14.338s] Invoked command in '/mnt/c/Users/User/Downloads/v4smartcontr' returned '0': PYTHONPATH=/mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/User/Downloads/v4smartcontr/install/smart_traffic/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/smart_traffic build --build-base /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/build install --record /mnt/c/Users/User/Downloads/v4smartcontr/build/smart_traffic/install.log --single-version-externally-managed install_data

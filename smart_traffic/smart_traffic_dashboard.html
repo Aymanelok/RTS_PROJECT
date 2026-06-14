@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🚦 Smart Traffic Controller — RT Dashboard v5</title>
+  <meta name="description" content="Tableau de bord temps réel connecté au serveur ROS2 (REST API)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ══════════════════════════════════════════════════
+       DESIGN TOKENS
+    ══════════════════════════════════════════════════ */
+    :root {
+      --bg:          #06090f;
+      --bg2:         #0b1120;
+      --surface:     rgba(255,255,255,0.04);
+      --surface2:    rgba(255,255,255,0.07);
+      --border:      rgba(255,255,255,0.08);
+      --border2:     rgba(255,255,255,0.15);
+
+      --sensor:      #00d4ff;
+      --ctrl:        #ff7f50;
+      --act:         #39ff14;
+      --deadline:    #ff2d55;
+      --e2e:         #C084FC;
+
+      --green:       #2ecc71;
+      --green-glow:  rgba(46,204,113,0.35);
+      --yellow:      #f39c12;
+      --yellow-glow: rgba(243,156,18,0.40);
+      --red:         #e74c3c;
+      --red-glow:    rgba(231,76,60,0.25);
+
+      --text:        #e8edf5;
+      --text-dim:    #6b7a99;
+      --text-muted:  #3a4460;
+
+      --radius:      14px;
+      --radius-sm:   8px;
+      --tr:          0.3s cubic-bezier(0.4,0,0.2,1);
+
+      --font-mono:   'JetBrains Mono', 'Consolas', monospace;
+      --font-sans:   'Inter', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 14px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* animated grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80vw;
+      height: 70vh;
+      background: radial-gradient(ellipse, rgba(0,212,255,0.055) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────── */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1640px;
+      margin: 0 auto;
+      padding: 20px 18px 52px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    .hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .hdr-left { display: flex; align-items: center; gap: 14px; }
+    .logo {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #00d4ff, #0051ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 0 32px rgba(0,212,255,0.45);
+      flex-shrink: 0;
+      animation: logo-glow 3s ease-in-out infinite;
+    }
+    @keyframes logo-glow {
+      0%,100% { box-shadow: 0 0 28px rgba(0,212,255,0.45); }
+      50%      { box-shadow: 0 0 44px rgba(0,212,255,0.65); }
+    }
+
+    .hdr h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .hdr h1 span {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-dim);
+      letter-spacing: 0.03em;
+      margin-top: 3px;
+    }
+    .hdr-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    .status-pill {
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid var(--border2);
+      backdrop-filter: blur(8px);
+      transition: var(--tr);
+    }
+    .status-pill.on  { background: rgba(46,204,113,0.12); border-color: rgba(46,204,113,0.3); color: var(--green); }
+    .status-pill.off { background: rgba(255,255,255,0.05); border-color: var(--border); color: var(--text-dim); }
+    .status-pill.sos { background: rgba(255,45,85,0.12); border-color: rgba(255,45,85,0.3); color: var(--deadline); }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.55; transform:scale(0.8); }
+    }
+
+    .clock {
+      font-family: var(--font-mono);
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--text-dim);
+      padding: 7px 13px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    /* ── CONTROL BAR ─────────────────────────────────── */
+    .ctrl-bar {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border2);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.75rem; font-weight: 600;
+      cursor: pointer;
+      transition: var(--tr);
+      letter-spacing: 0.03em;
+    }
+    .btn:hover   { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg,rgba(0,212,255,0.18),rgba(0,80,255,0.14)); border-color: rgba(0,212,255,0.38); color: var(--sensor); }
+    .btn.primary:hover { box-shadow: 0 0 22px rgba(0,212,255,0.22); }
+    .btn.danger  { background: rgba(231,76,60,0.1); border-color: rgba(231,76,60,0.3); color: var(--red); }
+    .spc { flex: 1; }
+
+    /* ── KPI ROW ─────────────────────────────────────── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: flex; flex-direction: column; gap: 5px;
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+      transition: var(--tr);
+    }
+    .kpi::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--ac, var(--sensor));
+      opacity: 0.72;
+    }
+    .kpi:hover { background: var(--surface2); border-color: var(--border2); transform: translateY(-2px); }
+    .kpi-lbl { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); }
+    .kpi-val { font-family: var(--font-mono); font-size: 1.65rem; font-weight: 700; line-height: 1; color: var(--ac, var(--text)); }
+    .kpi-sub { font-size: 0.67rem; color: var(--text-muted); }
+    .kpi-badge { font-size: 0.67rem; font-weight: 700; }
+    .kpi-badge.ok   { color: var(--green); }
+    .kpi-badge.warn { color: var(--yellow); }
+    .kpi-badge.err  { color: var(--red); }
+
+    /* ── GRID ────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-auto-rows: auto;
+      gap: 14px;
+    }
+    @media(max-width:1080px){ .grid{ grid-template-columns:1fr 1fr; } }
+    @media(max-width:660px) { .grid{ grid-template-columns:1fr; } }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      backdrop-filter: blur(12px);
+      transition: var(--tr);
+    }
+    .panel:hover { border-color: var(--border2); }
+
+    .ptitle {
+      font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .picon {
+      width: 20px; height: 20px;
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+    .ptitle-right { margin-left: auto; font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); }
+
+    /* ── LATENCY CHART ───────────────────────────────── */
+    .p-lat { grid-column: 1/-1; }
+    .p-lat canvas { height: 185px !important; }
+
+    /* ── TRAFFIC LIGHTS ──────────────────────────────── */
+    .p-lights { grid-column: 1/3; }
+    @media(max-width:1080px){ .p-lights{ grid-column:1/-1; } }
+
+    .lights-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .lc { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+    .lhousing {
+      width: 68px;
+      background: #080d18;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 0;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+    }
+    .lhousing.green  { border-color: var(--green);  box-shadow: 0 0 22px var(--green-glow), inset 0 0 22px rgba(46,204,113,0.04); }
+    .lhousing.yellow { border-color: var(--yellow); box-shadow: 0 0 22px var(--yellow-glow), inset 0 0 22px rgba(243,156,18,0.04); }
+
+    .bulb {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      transition: all 0.4s ease;
+    }
+    .bulb.r.on  { background: var(--red);    box-shadow: 0 0 10px 2px var(--red-glow); }
+    .bulb.r.off { background: #2d0a0a; }
+    .bulb.y.on  { background: var(--yellow); box-shadow: 0 0 12px 3px var(--yellow-glow); animation: yb 0.85s ease-in-out infinite; }
+    .bulb.y.off { background: #1e1200; }
+    .bulb.g.on  { background: var(--green);  box-shadow: 0 0 14px 4px var(--green-glow);  animation: gb 1.9s ease-in-out infinite; }
+    .bulb.g.off { background: #05180a; }
+
+    @keyframes yb { 0%,100%{opacity:1}50%{opacity:0.25} }
+    @keyframes gb { 0%,100%{box-shadow:0 0 14px 4px var(--green-glow)}50%{box-shadow:0 0 24px 8px var(--green-glow)} }
+
+    .l-dir  { font-size: 0.88rem; font-weight: 800; color: var(--text-dim); transition: var(--tr); }
+    .l-dir.active { color: var(--text); }
+    .l-name { font-size: 0.66rem; color: var(--text-muted); }
+    .l-cnt  { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: var(--text-dim); transition: var(--tr); }
+    .l-cnt.active { color: var(--green); }
+
+    .l-state {
+      font-size: 0.58rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 2px 7px; border-radius: 999px;
+    }
+    .l-state.green  { background: rgba(46,204,113,0.15);  border: 1px solid rgba(46,204,113,0.3);  color: var(--green); }
+    .l-state.yellow { background: rgba(243,156,18,0.15);  border: 1px solid rgba(243,156,18,0.3);  color: var(--yellow); }
+    .l-state.red    { background: rgba(231,76,60,0.06);   border: 1px solid rgba(231,76,60,0.1);   color: var(--text-muted); }
+
+    /* ── INTERSECTION SVG ────────────────────────────── */
+    .p-ints { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .ints-svg { width: 100%; max-width: 230px; aspect-ratio: 1; }
+
+    /* ── DEADLINE MISS BARS ──────────────────────────── */
+    .miss-row { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+    .miss-lbl { width: 78px; font-size: 0.72rem; font-weight: 600; flex-shrink: 0; }
+    .miss-bg  { flex:1; height: 7px; background: rgba(255,255,255,0.05); border-radius: 999px; overflow: hidden; }
+    .miss-fill{ height: 100%; border-radius: 999px; transition: width 0.55s cubic-bezier(0.4,0,0.2,1); }
+    .miss-v   { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; width: 26px; text-align: right; }
+
+    /* ── STATS TABLE ─────────────────────────────────── */
+    .stbl { width: 100%; border-collapse: collapse; }
+    .stbl th { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-muted); padding: 5px 7px; text-align: right; }
+    .stbl th:first-child { text-align: left; }
+    .stbl td { font-family: var(--font-mono); font-size: 0.8rem; padding: 7px 7px; border-top: 1px solid var(--border); text-align: right; }
+    .stbl td:first-child { text-align: left; font-family: var(--font-sans); font-weight: 600; }
+    .nd { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; }
+    .ok { color: var(--green); }
+    .wn { color: var(--yellow); }
+    .er { color: var(--red); }
+
+    /* ── RM SCHED TABLE ──────────────────────────────── */
+    .rm-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-top: 1px solid var(--border); font-size: 0.75rem; }
+    .rm-row:first-child { border-top: none; }
+    .rm-name { color: var(--text-dim); }
+    .rm-val  { font-family: var(--font-mono); color: var(--text); }
+    .rm-ok   { color: var(--green); font-size: 0.65rem; font-weight: 700; }
+    .rm-sum  { font-weight: 700; color: var(--text); }
+
+    /* ── TRAFFIC BARS ────────────────────────────────── */
+    .traf-row { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+    .traf-badge {
+      width: 26px; height: 26px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 800; flex-shrink: 0;
+      background: rgba(255,255,255,0.06); color: var(--text-dim);
+      transition: var(--tr);
+    }
+    .traf-badge.active { background: rgba(46,204,113,0.18); color: var(--green); }
+    .traf-bg   { flex:1; height: 9px; background: rgba(255,255,255,0.05); border-radius: 999px; overflow: hidden; }
+    .traf-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--sensor), #0052ff); transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+    .traf-fill.a { background: linear-gradient(90deg, var(--green), #00ff6e); }
+    .traf-cnt  { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; width: 26px; text-align: right; color: var(--text-dim); transition: var(--tr); }
+    .traf-cnt.active { color: var(--green); }
+
+    /* ── LOG ─────────────────────────────────────────── */
+    .p-log { grid-column: 1/-1; }
+
+    .log-wrap {
+      height: 130px;
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+      font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.72;
+    }
+    .log-wrap::-webkit-scrollbar { width: 4px; }
+    .log-wrap::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+    .le {
+      padding: 2px 8px; border-radius: 4px;
+      animation: fadein 0.28s ease;
+    }
+    .le:hover { background: var(--surface2); }
+    @keyframes fadein { from{opacity:0;transform:translateX(-5px)} to{opacity:1;transform:none} }
+
+    .lt   { color: var(--text-muted); margin-right: 7px; }
+    .ls   { color: var(--sensor); }
+    .lc2  { color: var(--ctrl); }
+    .la   { color: var(--act); }
+    .lsys { color: var(--text-dim); }
+    .lm   { color: var(--text); }
+    .lw   { color: var(--yellow); }
+    .ler  { color: var(--red); }
+
+    /* ── SCROLLBAR ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="hdr-left">
+      <div class="logo">🚦</div>
+      <div>
+        <h1>Smart Traffic Controller
+          <span>Système ROS2 — Dashboard Web Connecté (REST /api/status)</span>
+        </h1>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <div class="status-pill on" id="spill"><div class="dot"></div><span id="slbl">Connecté au Serveur</span></div>
+      <div class="clock" id="clk">--:--:--</div>
+    </div>
+  </header>
+
+  <!-- CONTROLS -->
+  <div class="ctrl-bar">
+    <button class="btn primary" id="btn-tog" onclick="toggle()">⏸ Pause Polling</button>
+    <div class="spc"></div>
+    <div style="font-size:0.75rem; color:var(--text-dim); margin-right: 10px;">Système: <span id="sys-res" style="color:var(--text)">CPU --% | RAM --%</span></div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi" style="--ac:var(--sensor)">
+      <div class="kpi-lbl">Capteur — Lat. P95</div>
+      <div class="kpi-val" id="k-smean">—</div>
+      <div class="kpi-sub">ms | deadline 100 ms</div>
+      <div class="kpi-badge ok" id="k-strend">✓ OK</div>
+    </div>
+    <div class="kpi" style="--ac:var(--ctrl)">
+      <div class="kpi-lbl">Contrôleur — Lat. P95</div>
+      <div class="kpi-val" id="k-cmean">—</div>
+      <div class="kpi-sub">ms | deadline 80 ms</div>
+      <div class="kpi-badge ok" id="k-ctrend">✓ OK</div>
+    </div>
+    <div class="kpi" style="--ac:var(--e2e)">
+      <div class="kpi-lbl">End-to-End P95</div>
+      <div class="kpi-val" id="k-amean">—</div>
+      <div class="kpi-sub">ms | deadline 200 ms</div>
+      <div class="kpi-badge ok" id="k-atrend">✓ OK</div>
+    </div>
+    <div class="kpi" style="--ac:var(--deadline)">
+      <div class="kpi-lbl">Deadline Misses Total</div>
+      <div class="kpi-val" id="k-miss">0</div>
+      <div class="kpi-sub">violations temps-réel</div>
+      <div class="kpi-badge ok" id="k-misstrend">✓ Aucun</div>
+    </div>
+    <div class="kpi" style="--ac:var(--green)">
+      <div class="kpi-lbl">Direction Active</div>
+      <div class="kpi-val" id="k-dir">—</div>
+      <div class="kpi-sub" id="k-phase">Phase en cours</div>
+      <div class="kpi-badge ok" id="k-dur">—</div>
+    </div>
+    <div class="kpi" style="--ac:#a78bfa">
+      <div class="kpi-lbl">Séquences</div>
+      <div class="kpi-val" id="k-seq">0</div>
+      <div class="kpi-sub">messages traités</div>
+      <div class="kpi-badge ok" id="k-rate">—</div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <!-- LATENCY CHART -->
+    <div class="panel p-lat">
+      <div class="ptitle">
+        <div class="picon" style="background:rgba(0,212,255,0.15)">📈</div>
+        Latences Temps Réel (via API)
+        <span class="ptitle-right" id="chart-pts">...</span>
+      </div>
+      <canvas id="latChart"></canvas>
+    </div>
+
+    <!-- TRAFFIC LIGHTS -->
+    <div class="panel p-lights">
+      <div class="ptitle">
+        <div class="picon" style="background:rgba(46,204,113,0.15)">🚦</div>
+        Feux de Signalisation
+      </div>
+      <div class="lights-row" id="lights-row"></div>
+    </div>
+
+    <!-- INTERSECTION MAP -->
+    <div class="panel p-ints">
+      <div class="ptitle">
+        <div class="picon" style="background:rgba(255,127,80,0.15)">🗺</div>
+        Intersection
+      </div>
+      <svg class="ints-svg" viewBox="0 0 200 200">
+        <rect width="200" height="200" fill="#07091a"/>
+        <rect x="0"  y="78" width="200" height="44" fill="#141c2e" rx="0"/>
+        <rect x="78" y="0"  width="44"  height="200" fill="#141c2e" rx="0"/>
+        <rect x="78" y="78" width="44"  height="44" fill="#1e2840"/>
+        <!-- Road marks -->
+        <line x1="0" y1="100" x2="72" y2="100" stroke="#2a3554" stroke-width="1.5" stroke-dasharray="8 5"/>
+        <line x1="128" y1="100" x2="200" y2="100" stroke="#2a3554" stroke-width="1.5" stroke-dasharray="8 5"/>
+        <line x1="100" y1="0"   x2="100" y2="72"  stroke="#2a3554" stroke-width="1.5" stroke-dasharray="8 5"/>
+        <line x1="100" y1="128" x2="100" y2="200" stroke="#2a3554" stroke-width="1.5" stroke-dasharray="8 5"/>
+        <!-- Labels -->
+        <text x="100" y="14" text-anchor="middle" font-size="8.5" fill="#2a3554" font-family="Inter,sans-serif" font-weight="700">NORD</text>
+        <text x="100" y="194" text-anchor="middle" font-size="8.5" fill="#2a3554" font-family="Inter,sans-serif" font-weight="700">SUD</text>
+        <text x="5"   y="103" font-size="8.5" fill="#2a3554" font-family="Inter,sans-serif" font-weight="700">O</text>
+        <text x="185" y="103" font-size="8.5" fill="#2a3554" font-family="Inter,sans-serif" font-weight="700">E</text>
+        <!-- Direction arrows -->
+        <text x="28"  y="97"  font-size="10" fill="#1e2840" font-family="sans-serif">▶</text>
+        <text x="152" y="97"  font-size="10" fill="#1e2840" font-family="sans-serif">◀</text>
+        <text x="97"  y="34"  font-size="10" fill="#1e2840" font-family="sans-serif">▼</text>
+        <text x="97"  y="170" font-size="10" fill="#1e2840" font-family="sans-serif">▲</text>
+        <!-- Traffic light dots -->
+        <circle id="sn-N" cx="100" cy="68"  r="7" fill="#2d0a0a"/>
+        <circle id="sn-S" cx="100" cy="132" r="7" fill="#2d0a0a"/>
+        <circle id="sn-E" cx="132" cy="100" r="7" fill="#2d0a0a"/>
+        <circle id="sn-O" cx="68"  cy="100" r="7" fill="#2d0a0a"/>
+        <!-- Vehicle count display -->
+        <text id="cn-N" x="100" y="55"  text-anchor="middle" font-size="9" fill="#2a3554" font-family="JetBrains Mono,monospace" font-weight="700">0</text>
+        <text id="cn-S" x="100" y="153" text-anchor="middle" font-size="9" fill="#2a3554" font-family="JetBrains Mono,monospace" font-weight="700">0</text>
+        <text id="cn-E" x="155" y="104" text-anchor="middle" font-size="9" fill="#2a3554" font-family="JetBrains Mono,monospace" font-weight="700">0</text>
+        <text id="cn-O" x="45"  y="104" text-anchor="middle" font-size="9" fill="#2a3554" font-family="JetBrains Mono,monospace" font-weight="700">0</text>
+      </svg>
+    </div>
+
+    <!-- DEADLINE MISS + NODE STATS -->
+    <div class="panel">
+      <div class="ptitle">
+        <div class="picon" style="background:rgba(255,45,85,0.15)">⚠</div>
+        Deadline Misses
+      </div>
+      <div class="miss-row">
+        <div class="miss-lbl" style="color:var(--sensor)">● Capteur</div>
+        <div class="miss-bg"><div class="miss-fill" id="mb-s" style="width:0%;background:var(--sensor)"></div></div>
+        <div class="miss-v" id="mv-s" style="color:var(--sensor)">0</div>
+      </div>
+      <div class="miss-row">
+        <div class="miss-lbl" style="color:var(--ctrl)">● Contrôleur</div>
+        <div class="miss-bg"><div class="miss-fill" id="mb-c" style="width:0%;background:var(--ctrl)"></div></div>
+        <div class="miss-v" id="mv-c" style="color:var(--ctrl)">0</div>
+      </div>
+      <div class="miss-row">
+        <div class="miss-lbl" style="color:var(--act)">● Actionneur</div>
+        <div class="miss-bg"><div class="miss-fill" id="mb-a" style="width:0%;background:var(--act)"></div></div>
+        <div class="miss-v" id="mv-a" style="color:var(--act)">0</div>
+      </div>
+
+      <div class="ptitle" style="margin-top:18px;">
+        <div class="picon" style="background:rgba(0,212,255,0.12)">📊</div>
+        Statistiques (moy / P95 / wcet)
+      </div>
+      <table class="stbl">
+        <thead>
+          <tr><th>Nœud</th><th>Moy</th><th>P95</th><th>WCET</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="nd" style="background:var(--sensor)"></span>Capteur</td>
+            <td id="ss-mean">—</td><td id="ss-p95">—</td><td id="ss-wcet">—</td>
+          </tr>
+          <tr>
+            <td><span class="nd" style="background:var(--ctrl)"></span>Contrôleur</td>
+            <td id="sc-mean">—</td><td id="sc-p95">—</td><td id="sc-wcet">—</td>
+          </tr>
+          <tr>
+            <td><span class="nd" style="background:var(--act)"></span>Actionneur</td>
+            <td id="sa-mean">—</td><td id="sa-p95">—</td><td id="sa-wcet">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TRAFFIC VOLUME + RM -->
+    <div class="panel">
+      <div class="ptitle">
+        <div class="picon" style="background:rgba(0,212,255,0.1)">🚗</div>
+        Volume de Trafic
+      </div>
+      <div id="traf-bars"></div>
+
+      <div class="ptitle" style="margin-top:18px">
+        <div class="picon" style="background:rgba(167,139,250,0.15)">⏱</div>
+        Schedulabilité RM (via API)
+      </div>
+      <div id="rm-container">
+        <!-- Rempli par le fetch /api/rm -->
+        <div style="font-size:0.7rem;color:var(--text-dim)">En attente du serveur...</div>
+      </div>
+    </div>
+
+    <!-- DECISION LOG -->
+    <div class="panel p-log">
+      <div class="ptitle">
+        <div class="picon" style="background:rgba(167,139,250,0.15)">📋</div>
+        Alertes Système
+        <span class="ptitle-right" id="log-cnt">0 entrées</span>
+      </div>
+      <div class="log-wrap" id="log-wrap"></div>
+    </div>
+
+  </div><!-- /grid -->
+</div><!-- /wrap -->
+
+<script>
+'use strict';
+
+/* ─── CONSTANTS ────────────────────────────────── */
+const DIRS   = ['N','S','E','O'];
+const DLBL   = {N:'Nord',S:'Sud',E:'Est',O:'Ouest'};
+const DL_S   = 100, DL_C = 80, DL_A = 50;
+
+let run = true;
+let pollIv = null;
+
+/* ─── CHART ────────────────────────────────────── */
+const ctx = document.getElementById('latChart').getContext('2d');
+Chart.register({
+  id:'deadlines',
+  afterDraw(chart){
+    const c=chart.ctx, ya=chart.scales.y, x0=chart.scales.x.left, x1=chart.scales.x.right;
+    [{y:DL_S,col:'rgba(0,212,255,.4)',lbl:'100ms'},{y:DL_C,col:'rgba(255,127,80,.4)',lbl:'80ms'},{y:DL_A,col:'rgba(57,255,20,.4)',lbl:'50ms'}]
+    .forEach(({y,col,lbl})=>{
+      const py=ya.getPixelForValue(y);
+      if(py<ya.top||py>ya.bottom)return;
+      c.save();c.strokeStyle=col;c.lineWidth=1;c.setLineDash([4,4]);
+      c.beginPath();c.moveTo(x0,py);c.lineTo(x1,py);c.stroke();
+      c.fillStyle=col;c.font="10px 'JetBrains Mono'";c.fillText(lbl,x1-36,py-4);
+      c.restore();
+    });
+  }
+});
+
+const lChart = new Chart(ctx,{
+  type:'line',
+  data:{
+    labels:[],
+    datasets:[
+      {label:'Capteur',data:[],borderColor:'#00d4ff',borderWidth:1.8,backgroundColor:'rgba(0,212,255,.05)',pointRadius:0,tension:0.4,fill:true},
+      {label:'Contrôleur',data:[],borderColor:'#ff7f50',borderWidth:1.8,backgroundColor:'rgba(255,127,80,.03)',pointRadius:0,tension:0.4,fill:true},
+      {label:'Actionneur',data:[],borderColor:'#39ff14',borderWidth:1.8,backgroundColor:'rgba(57,255,20,.03)',pointRadius:0,tension:0.4,fill:true},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false, animation:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{labels:{color:'#6b7a99',font:{family:"'JetBrains Mono'",size:10},boxWidth:12,usePointStyle:true,pointStyle:'line'}},
+      tooltip:{backgroundColor:'rgba(6,9,15,.95)',borderColor:'rgba(255,255,255,.1)',borderWidth:1,titleColor:'#6b7a99',bodyColor:'#e8edf5',bodyFont:{family:"'JetBrains Mono'",size:12},callbacks:{label:c=>` ${c.dataset.label.split(' ')[0]}: ${c.parsed.y?.toFixed(2)??'—'} ms`}}
+    },
+    scales:{
+      x:{ticks:{color:'#3a4460',font:{size:9},maxTicksLimit:10},grid:{color:'rgba(255,255,255,.03)'},border:{color:'rgba(255,255,255,.07)'}},
+      y:{min:0,ticks:{color:'#3a4460',font:{size:9}},grid:{color:'rgba(255,255,255,.03)'},border:{color:'rgba(255,255,255,.07)'}}
+    }
+  }
+});
+
+/* ─── BUILD HTML SKELETONS ─────────────────────── */
+function buildLights(){
+  const r=document.getElementById('lights-row');
+  r.innerHTML=DIRS.map(d=>`
+    <div class="lc">
+      <div class="l-dir" id="ld-${d}">${d}</div>
+      <div class="lhousing" id="lh-${d}">
+        <div class="bulb r off" id="lb-${d}-R"></div>
+        <div class="bulb y off" id="lb-${d}-Y"></div>
+        <div class="bulb g off" id="lb-${d}-G"></div>
+      </div>
+      <div class="l-name">${DLBL[d]}</div>
+      <div class="l-cnt" id="lc-${d}">0 véh.</div>
+      <div class="l-state red" id="lst-${d}">ROUGE</div>
+    </div>`).join('');
+}
+buildLights();
+
+function buildTraf(){
+  document.getElementById('traf-bars').innerHTML=DIRS.map(d=>`
+    <div class="traf-row">
+      <div class="traf-badge" id="tb-${d}">${d}</div>
+      <div class="traf-bg"><div class="traf-fill" id="tf-${d}" style="width:0%"></div></div>
+      <div class="traf-cnt" id="tc-${d}">0</div>
+    </div>`).join('');
+}
+buildTraf();
+
+/* ─── UPDATE UI ────────────────────────────────── */
+const fm=v=>v.toFixed(1);
+
+function updateUI(snap, rmReport) {
+  document.getElementById('clk').textContent = new Date().toLocaleTimeString('fr-FR',{hour12:false});
+
+  const st = snap.stats;
+  const sys = snap.system || {};
+
+  document.getElementById('sys-res').textContent = `CPU ${sys.cpu_pct}% | RAM ${sys.ram_pct}%`;
+
+  document.getElementById('k-smean').textContent = fm(st.sensor.p95);
+  document.getElementById('k-cmean').textContent = fm(st.controller.p95);
+  document.getElementById('k-amean').textContent = fm(st.e2e ? st.e2e.p95 : 0);
+
+  setBadge('k-strend', st.sensor.p95, DL_S);
+  setBadge('k-ctrend', st.controller.p95, DL_C);
+  setBadge('k-atrend', st.e2e ? st.e2e.p95 : 0, 200);
+
+  const tm = Object.values(snap.missed).reduce((a,b)=>a+b,0);
+  document.getElementById('k-miss').textContent = tm;
+  const mb = document.getElementById('k-misstrend');
+  if(tm === 0){ mb.className='kpi-badge ok'; mb.textContent='✓ Aucun'; }
+  else if(tm < 5){ mb.className='kpi-badge warn'; mb.textContent=`⚠ ${tm}`; }
+  else{ mb.className='kpi-badge err'; mb.textContent=`✕ ${tm}`; }
+
+  const dv = document.getElementById('k-dir');
+  const ph = document.getElementById('k-phase');
+  const active_green = snap.active_green;
+  let has_yellow = Object.values(snap.lights).includes('YELLOW');
+
+  if(has_yellow) {
+    dv.textContent = '🟡'; ph.textContent = `Transition en cours`;
+  } else if(active_green) {
+    dv.textContent = DLBL[active_green] || active_green; ph.textContent = 'Phase VERTE active';
+  } else {
+    dv.textContent = '—'; ph.textContent = 'Tous rouges';
+  }
+
+  document.getElementById('k-seq').textContent = snap.total_msgs || 0;
+  
+  // Stats tables
+  const fmt = (id,v)=>document.getElementById(id).textContent=v;
+  fmt('ss-mean', fm(st.sensor.mean)); fmt('ss-p95', fm(st.sensor.p95)); fmt('ss-wcet', fm(st.sensor.wcet_obs));
+  fmt('sc-mean', fm(st.controller.mean)); fmt('sc-p95', fm(st.controller.p95)); fmt('sc-wcet', fm(st.controller.wcet_obs));
+  fmt('sa-mean', fm(st.actuator.mean)); fmt('sa-p95', fm(st.actuator.p95)); fmt('sa-wcet', fm(st.actuator.wcet_obs));
+
+  const mx = Math.max(snap.missed.sensor, snap.missed.controller, snap.missed.actuator, 1);
+  setMiss('mb-s','mv-s',snap.missed.sensor,mx);
+  setMiss('mb-c','mv-c',snap.missed.controller,mx);
+  setMiss('mb-a','mv-a',snap.missed.actuator,mx);
+
+  const mc = Math.max(...Object.values(snap.counts), 1);
+  DIRS.forEach(d => {
+    const v = snap.counts[d] || 0;
+    const on = snap.lights[d] === 'GREEN';
+    document.getElementById(`tf-${d}`).style.width = (v/mc*100)+'%';
+    document.getElementById(`tf-${d}`).className = 'traf-fill'+(on?' a':'');
+    document.getElementById(`tc-${d}`).textContent = v;
+    document.getElementById(`tc-${d}`).className = 'traf-cnt'+(on?' active':'');
+    document.getElementById(`tb-${d}`).className = 'traf-badge'+(on?' active':'');
+
+    // Lights update
+    const stLight = snap.lights[d] || 'RED';
+    const h = document.getElementById(`lh-${d}`);
+    h.className = 'lhousing'+(stLight==='GREEN'?' green':stLight==='YELLOW'?' yellow':'');
+    ['R','Y','G'].forEach(x => {
+      const b = document.getElementById(`lb-${d}-${x}`);
+      const is_on = (x==='R'&&stLight==='RED')||(x==='Y'&&stLight==='YELLOW')||(x==='G'&&stLight==='GREEN');
+      b.className = `bulb ${x.toLowerCase()} ${is_on?'on':'off'}`;
+    });
+    document.getElementById(`ld-${d}`).className = 'l-dir'+(stLight!=='RED'?' active':'');
+    document.getElementById(`lc-${d}`).textContent = `${v} véh.`;
+    document.getElementById(`lc-${d}`).className = 'l-cnt'+(stLight==='GREEN'?' active':'');
+    
+    const sml = {GREEN:'VERT', YELLOW:'JAUNE', RED:'ROUGE'};
+    const sl2 = document.getElementById(`lst-${d}`);
+    sl2.textContent = sml[stLight]; sl2.className = 'l-state '+stLight.toLowerCase();
+
+    // SVG update
+    const svgc = {GREEN:'#2ecc71', YELLOW:'#f39c12', RED:'#e74c3c'};
+    const svgg = {GREEN:'drop-shadow(0 0 7px #2ecc71)', YELLOW:'drop-shadow(0 0 7px #f39c12)', RED:'drop-shadow(0 0 3px #4a0a0a)'};
+    const sc = document.getElementById(`sn-${d}`);
+    if(sc){ sc.style.fill = svgc[stLight]; sc.style.filter = svgg[stLight]; }
+    const sct = document.getElementById(`cn-${d}`);
+    const tcol = {GREEN:'#2ecc71', YELLOW:'#f39c12', RED:'#2a3554'};
+    if(sct){ sct.textContent = v; sct.style.fill = tcol[stLight]; }
+  });
+
+  // Chart update
+  const sl = snap.sensor_lat || [];
+  const cl = snap.controller_lat || [];
+  const al = snap.actuator_lat || [];
+  const max_len = Math.max(sl.length, cl.length, al.length, 1);
+  const pad = (data) => Array(max_len - data.length).fill(null).concat(data);
+
+  lChart.data.labels = Array.from({length: max_len}, (_, i) => i);
+  lChart.data.datasets[0].data = pad(sl);
+  lChart.data.datasets[1].data = pad(cl);
+  lChart.data.datasets[2].data = pad(al);
+  lChart.update('none');
+  
+  // Alerts update
+  if(snap.alerts && snap.alerts.recent) {
+      const wrap = document.getElementById('log-wrap');
+      wrap.innerHTML = snap.alerts.recent.map(a => {
+          let mcls = a.level === 'CRITICAL' ? 'ler' : a.level === 'WARN' ? 'lw' : 'lm';
+          return `<div class="le"><span class="lt">${a.t}</span> <span class="lsys">[${a.source}]</span> <span class="${mcls}">${a.msg}</span></div>`;
+      }).join('');
+      document.getElementById('log-cnt').textContent = snap.alerts.recent.length + ' alertes';
+  }
+
+  // RM update
+  if(rmReport && rmReport.tasks) {
+      const rc = document.getElementById('rm-container');
+      const r_ok = rmReport.schedulable ? '<span class="rm-ok">✓</span>' : '<span class="rm-ok" style="color:var(--red)">✕</span>';
+      let html = '';
+      for (const [node, t] of Object.entries(rmReport.tasks)) {
+          let u = t.wcet / t.period;
+          html += `<div class="rm-row"><span class="rm-name">${node} (T=${t.period}ms)</span><span class="rm-val">U = ${u.toFixed(3)}</span></div>`;
+      }
+      html += `<div class="rm-row"><span class="rm-sum">Σ U total</span><span class="rm-val rm-sum">${rmReport.utilization.toFixed(3)}</span>${r_ok}</div>`;
+      rc.innerHTML = html;
+  }
+}
+
+function setBadge(id,v,dl){
+  const e=document.getElementById(id);
+  if(v<dl*0.7){e.className='kpi-badge ok';e.textContent='✓ OK';}
+  else if(v<dl*0.92){e.className='kpi-badge warn';e.textContent='⚠ Élevé';}
+  else{e.className='kpi-badge err';e.textContent='✕ Critique';}
+}
+
+function setMiss(bid,vid,v,mx){
+  document.getElementById(bid).style.width=(v/mx*100)+'%';
+  document.getElementById(vid).textContent=v;
+}
+
+/* ─── POLLING API ──────────────────────────────── */
+async function fetchAPI() {
+    if (!run) return;
+    try {
+        const [resStatus, resRm] = await Promise.all([
+            fetch('/api/status').catch(() => null),
+            fetch('/api/rm').catch(() => null)
+        ]);
+        
+        if (resStatus && resStatus.ok) {
+            const snap = await resStatus.json();
+            let rmReport = null;
+            if (resRm && resRm.ok) rmReport = await resRm.json();
+            
+            updateUI(snap, rmReport);
+            document.getElementById('spill').className='status-pill on';
+            document.getElementById('slbl').textContent='Connecté au Serveur';
+        } else {
+            throw new Error("Bad status");
+        }
+    } catch (err) {
+        document.getElementById('spill').className='status-pill off';
+        document.getElementById('slbl').textContent='Connexion Perdue';
+        document.getElementById('sys-res').textContent = '—';
+    }
+}
+
+function toggle(){
+  run=!run;
+  const btn=document.getElementById('btn-tog');
+  if(run){ btn.innerHTML='⏸ Pause Polling'; fetchAPI(); }
+  else   { btn.innerHTML='▶ Reprendre Polling'; }
+}
+
+/* ─── INIT ─────────────────────────────────────── */
+pollIv = setInterval(fetchAPI, 400);
+fetchAPI();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: smart_traffic
+Version: 1.0.0
+Summary: Smart Traffic Controller — Système ROS2 temps réel
+Maintainer: Smart Traffic Team
+Maintainer-email: student@university.ac.ma
+License: MIT
+Requires-Dist: setuptools
+Dynamic: license
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: requires-dist
+Dynamic: summary

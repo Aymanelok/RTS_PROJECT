@@ -1,0 +1,42 @@
+[3.151s] Invoking command in 'C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr': PYTHONPATH=C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\prefix_override;C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\colcon_core\task\python\colcon_distutils_commands;C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\Lib\site-packages; C:\Users\User\AppData\Local\Programs\Python\Python313\python.exe -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build\smart_traffic build --build-base C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build install --record C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\install.log --single-version-externally-managed install_data
+[3.649s] C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\setuptools\_distutils\dist.py:287: UserWarning: Unknown distribution option: 'tests_require'
+[3.649s]   warnings.warn(msg)
+[4.009s] running egg_info
+[4.070s] writing build\smart_traffic\smart_traffic.egg-info\PKG-INFO
+[4.073s] writing dependency_links to build\smart_traffic\smart_traffic.egg-info\dependency_links.txt
+[4.073s] writing entry points to build\smart_traffic\smart_traffic.egg-info\entry_points.txt
+[4.074s] writing requirements to build\smart_traffic\smart_traffic.egg-info\requires.txt
+[4.075s] writing top-level names to build\smart_traffic\smart_traffic.egg-info\top_level.txt
+[4.193s] reading manifest file 'build\smart_traffic\smart_traffic.egg-info\SOURCES.txt'
+[4.198s] writing manifest file 'build\smart_traffic\smart_traffic.egg-info\SOURCES.txt'
+[4.199s] running build
+[4.199s] running build_py
+[4.201s] copying simulation\intersection.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\simulation
+[4.204s] copying simulation\ros2_bridge.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\simulation
+[4.207s] copying simulation\run_simulation.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\simulation
+[4.209s] copying simulation\traffic_engine.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\simulation
+[4.212s] copying simulation\__init__.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\simulation
+[4.216s] copying smart_traffic\actuator_node.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\smart_traffic
+[4.219s] copying smart_traffic\controller_node.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\smart_traffic
+[4.221s] copying smart_traffic\dashboard_node.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\smart_traffic
+[4.225s] copying smart_traffic\sensor_node.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\smart_traffic
+[4.228s] copying smart_traffic\__init__.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build\lib\smart_traffic
+[4.233s] running install
+[4.235s] running install_lib
+[4.363s] running install_data
+[4.364s] copying resource\smart_traffic -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\share\ament_index\resource_index\packages
+[4.369s] copying launch\traffic_launch.py -> C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\share\smart_traffic\launch
+[4.373s] running install_egg_info
+[4.462s] removing 'C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\Lib\site-packages\smart_traffic-1.0.0-py3.13.egg-info' (and everything under it)
+[4.468s] Copying build\smart_traffic\smart_traffic.egg-info to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\Lib\site-packages\smart_traffic-1.0.0-py3.13.egg-info
+[4.490s] running install_scripts
+[4.674s] Installing actuator_node-script.py script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.676s] Installing actuator_node.exe script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.677s] Installing controller_node-script.py script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.678s] Installing controller_node.exe script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.680s] Installing dashboard_node-script.py script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.682s] Installing dashboard_node.exe script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.685s] Installing sensor_node-script.py script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.686s] Installing sensor_node.exe script to C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\lib\smart_traffic
+[4.689s] writing list of installed files to 'C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\install.log'
+[4.736s] Invoked command in 'C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr' returned '0': PYTHONPATH=C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\prefix_override;C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\colcon_core\task\python\colcon_distutils_commands;C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\install\smart_traffic\Lib\site-packages; C:\Users\User\AppData\Local\Programs\Python\Python313\python.exe -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build\smart_traffic build --build-base C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\build install --record C:\Users\User\Downloads\v4smartcontr (2) (1)\v4smartcontr\v4smartcontr\build\smart_traffic\install.log --single-version-externally-managed install_data

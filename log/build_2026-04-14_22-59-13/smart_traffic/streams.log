@@ -1,0 +1,24 @@
+[3.417s] Invoking command in '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr': PYTHONPATH=/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/smart_traffic build --build-base /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build install --record /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log --single-version-externally-managed install_data
+[4.802s] running egg_info
+[4.862s] writing build/smart_traffic/smart_traffic.egg-info/PKG-INFO
+[4.884s] writing dependency_links to build/smart_traffic/smart_traffic.egg-info/dependency_links.txt
+[4.898s] writing entry points to build/smart_traffic/smart_traffic.egg-info/entry_points.txt
+[4.910s] writing requirements to build/smart_traffic/smart_traffic.egg-info/requires.txt
+[4.922s] writing top-level names to build/smart_traffic/smart_traffic.egg-info/top_level.txt
+[5.082s] reading manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'
+[5.260s] writing manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'
+[5.268s] running build
+[5.272s] running build_py
+[5.432s] running install
+[5.449s] running install_lib
+[5.904s] running install_data
+[5.996s] running install_egg_info
+[6.061s] removing '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic-1.0.0-py3.12.egg-info' (and everything under it)
+[6.175s] Copying build/smart_traffic/smart_traffic.egg-info to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic-1.0.0-py3.12.egg-info
+[6.717s] running install_scripts
+[7.201s] Installing actuator_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[7.231s] Installing controller_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[7.252s] Installing dashboard_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[7.282s] Installing sensor_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[7.315s] writing list of installed files to '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log'
+[7.354s] Invoked command in '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr' returned '0': PYTHONPATH=/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/smart_traffic build --build-base /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build install --record /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log --single-version-externally-managed install_data

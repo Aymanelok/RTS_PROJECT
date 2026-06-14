@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+            schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+
+  <name>smart_traffic</name>
+  <version>1.0.0</version>
+  <description>
+    Smart Traffic Controller — Système de contrôle de feux de signalisation
+    temps réel basé sur ROS2. Implémente une architecture 4-nœuds avec
+    contraintes Hard Real-Time (cycle ≤ 200 ms).
+  </description>
+
+  <maintainer email="student@university.ac.ma">Smart Traffic Team</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/university/smart_traffic</url>
+
+  <!-- ── Dépendances de build ──────────────────────────── -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <!-- ── Dépendances ROS2 ─────────────────────────────── -->
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+  <!-- ── Dépendances Launch ───────────────────────────── -->
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <!-- ── Dépendances Python ───────────────────────────── -->
+  <exec_depend>python3-matplotlib</exec_depend>
+  <exec_depend>python3-pandas</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+
+  <!-- ── Dépendances test ─────────────────────────────── -->
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+
+</package>

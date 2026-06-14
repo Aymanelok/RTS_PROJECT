@@ -1,0 +1,39 @@
+[2.706s] Invoking command in '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr': PYTHONPATH=/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/smart_traffic build --build-base /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build install --record /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log --single-version-externally-managed install_data
+[3.649s] running egg_info
+[3.680s] writing build/smart_traffic/smart_traffic.egg-info/PKG-INFO
+[3.696s] writing dependency_links to build/smart_traffic/smart_traffic.egg-info/dependency_links.txt
+[3.705s] writing entry points to build/smart_traffic/smart_traffic.egg-info/entry_points.txt
+[3.716s] writing requirements to build/smart_traffic/smart_traffic.egg-info/requires.txt
+[3.723s] writing top-level names to build/smart_traffic/smart_traffic.egg-info/top_level.txt
+[3.833s] reading manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'
+[3.956s] writing manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'
+[3.961s] running build
+[3.963s] running build_py
+[3.987s] copying smart_traffic/actuator_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[4.059s] copying smart_traffic/controller_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[4.136s] copying smart_traffic/dashboard_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[4.225s] copying smart_traffic/sensor_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[4.306s] copying smart_traffic/__init__.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic
+[4.342s] running install
+[4.356s] running install_lib
+[4.426s] creating /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic
+[4.458s] copying /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/actuator_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic
+[4.524s] copying /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/controller_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic
+[4.589s] copying /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/dashboard_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic
+[4.646s] copying /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/sensor_node.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic
+[4.705s] copying /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build/lib/smart_traffic/__init__.py -> /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic
+[4.759s] byte-compiling /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic/actuator_node.py to actuator_node.cpython-312.pyc
+[4.832s] byte-compiling /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic/controller_node.py to controller_node.cpython-312.pyc
+[4.906s] byte-compiling /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic/dashboard_node.py to dashboard_node.cpython-312.pyc
+[4.974s] byte-compiling /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic/sensor_node.py to sensor_node.cpython-312.pyc
+[5.046s] byte-compiling /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic/__init__.py to __init__.cpython-312.pyc
+[5.108s] running install_data
+[5.174s] running install_egg_info
+[5.231s] Copying build/smart_traffic/smart_traffic.egg-info to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic-1.0.0-py3.12.egg-info
+[5.588s] running install_scripts
+[5.949s] Installing actuator_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[5.967s] Installing controller_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[5.982s] Installing dashboard_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[6.004s] Installing sensor_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic
+[6.027s] writing list of installed files to '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log'
+[6.064s] Invoked command in '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr' returned '0': PYTHONPATH=/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/smart_traffic build --build-base /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build install --record /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log --single-version-externally-managed install_data

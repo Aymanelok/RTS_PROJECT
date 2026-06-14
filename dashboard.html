@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🚦 Smart Traffic Controller — Dashboard</title>
+  <meta name="description" content="Tableau de bord temps réel du système Smart Traffic Controller ROS2 — visualisation des latences, états des feux et métriques système." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* ══════════════════════════════════════════════════
+       DESIGN TOKENS
+    ══════════════════════════════════════════════════ */
+    :root {
+      --bg:          #06090f;
+      --bg2:         #0b1120;
+      --surface:     rgba(255,255,255,0.04);
+      --surface2:    rgba(255,255,255,0.07);
+      --border:      rgba(255,255,255,0.08);
+      --border2:     rgba(255,255,255,0.15);
+
+      --sensor:      #00d4ff;
+      --controller:  #ff7f50;
+      --actuator:    #39ff14;
+      --deadline:    #ff2d55;
+
+      --green:       #2ecc71;
+      --green-glow:  rgba(46,204,113,0.35);
+      --yellow:      #f39c12;
+      --yellow-glow: rgba(243,156,18,0.35);
+      --red:         #e74c3c;
+      --red-glow:    rgba(231,76,60,0.25);
+
+      --text:        #e8edf5;
+      --text-dim:    #6b7a99;
+      --text-muted:  #3a4460;
+
+      --radius:      14px;
+      --radius-sm:   8px;
+      --transition:  0.3s cubic-bezier(0.4,0,0.2,1);
+
+      --font-mono:   'JetBrains Mono', monospace;
+      --font-sans:   'Inter', sans-serif;
+    }
+
+    /* ══════════════════════════════════════════════════
+       RESET + BASE
+    ══════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 14px; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Radial gradient accent */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70vw;
+      height: 60vh;
+      background: radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══════════════════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════════════════ */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+
+    /* ══════════════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════════════ */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      width: 52px; height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--sensor), #0077ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 0 30px rgba(0,212,255,0.4);
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .header h1 span {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-dim);
+      letter-spacing: 0.03em;
+      margin-top: 3px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid var(--border2);
+      backdrop-filter: blur(8px);
+      transition: var(--transition);
+    }
+
+    .status-pill.online {
+      background: rgba(46,204,113,0.12);
+      border-color: rgba(46,204,113,0.3);
+      color: var(--green);
+    }
+
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    .time-display {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    /* ══════════════════════════════════════════════════
+       KPI ROW
+    ══════════════════════════════════════════════════ */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      backdrop-filter: blur(12px);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent-color, var(--sensor));
+      opacity: 0.7;
+    }
+
+    .kpi-card:hover {
+      background: var(--surface2);
+      border-color: var(--border2);
+      transform: translateY(-2px);
+    }
+
+    .kpi-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    .kpi-value {
+      font-family: var(--font-mono);
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent-color, var(--text));
+    }
+
+    .kpi-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .kpi-trend {
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .kpi-trend.ok { color: var(--green); }
+    .kpi-trend.warn { color: var(--yellow); }
+    .kpi-trend.err { color: var(--red); }
+
+    /* ══════════════════════════════════════════════════
+       GRID LAYOUT
+    ══════════════════════════════════════════════════ */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .main-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      transition: var(--transition);
+    }
+
+    .panel:hover {
+      border-color: var(--border2);
+    }
+
+    .panel-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-title-icon {
+      width: 20px; height: 20px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+
+    /* ══════════════════════════════════════════════════
+       LATENCY CHART — FULL WIDTH
+    ══════════════════════════════════════════════════ */
+    .panel-latency {
+      grid-column: 1 / -1;
+      height: 240px;
+    }
+
+    .panel-latency canvas {
+      width: 100% !important;
+      height: 190px !important;
+    }
+
+    /* ══════════════════════════════════════════════════
+       TRAFFIC LIGHTS
+    ══════════════════════════════════════════════════ */
+    .panel-lights {
+      grid-column: 1 / 3;
+    }
+
+    @media (max-width: 1100px) {
+      .panel-lights { grid-column: 1 / -1; }
+    }
+
+    .lights-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .light-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .light-housing {
+      width: 70px;
+      background: #0a0f1a;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .light-housing.active-green {
+      border-color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow), inset 0 0 20px rgba(46,204,113,0.05);
+    }
+
+    .light-housing.active-yellow {
+      border-color: var(--yellow);
+      box-shadow: 0 0 20px var(--yellow-glow), inset 0 0 20px rgba(243,156,18,0.05);
+    }
+
+    .bulb {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .bulb.red {
+      background: var(--red);
+      box-shadow: 0 0 6px 1px var(--red-glow);
+    }
+    .bulb.red.dim { background: #3a1010; box-shadow: none; }
+
+    .bulb.yellow {
+      background: var(--yellow);
+      box-shadow: 0 0 10px 2px var(--yellow-glow);
+    }
+    .bulb.yellow.dim { background: #2e1e00; box-shadow: none; animation: none; }
+
+    .bulb.yellow.blink {
+      animation: blink-yellow 0.8s ease-in-out infinite;
+    }
+
+    @keyframes blink-yellow {
+      0%, 100% { opacity: 1; box-shadow: 0 0 14px 4px var(--yellow-glow); }
+      50% { opacity: 0.2; box-shadow: none; }
+    }
+
+    .bulb.green {
+      background: var(--green);
+      box-shadow: 0 0 14px 4px var(--green-glow);
+      animation: pulse-green 1.8s ease-in-out infinite;
+    }
+    .bulb.green.dim { background: #0a2010; box-shadow: none; animation: none; }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 14px 4px var(--green-glow); }
+      50% { box-shadow: 0 0 22px 8px var(--green-glow); }
+    }
+
+    .dir-badge {
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      transition: var(--transition);
+    }
+
+    .dir-badge.active { color: var(--text); }
+
+    .dir-label {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .dir-count {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      transition: var(--transition);
+    }
+
+    .dir-count.active { color: var(--green); }
+
+    .dir-state-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      transition: var(--transition);
+    }
+
+    .dir-state-label.green {
+      background: rgba(46,204,113,0.15);
+      color: var(--green);
+      border: 1px solid rgba(46,204,113,0.3);
+    }
+    .dir-state-label.yellow {
+      background: rgba(243,156,18,0.15);
+      color: var(--yellow);
+      border: 1px solid rgba(243,156,18,0.3);
+    }
+    .dir-state-label.red {
+      background: rgba(231,76,60,0.08);
+      color: var(--text-muted);
+      border: 1px solid rgba(231,76,60,0.1);
+    }
+
+    /* ══════════════════════════════════════════════════
+       STATS PANEL
+    ══════════════════════════════════════════════════ */
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .stats-table th {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 6px 8px;
+      text-align: right;
+    }
+    .stats-table th:first-child { text-align: left; }
+
+    .stats-table td {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 8px 8px;
+      border-top: 1px solid var(--border);
+      text-align: right;
+    }
+    .stats-table td:first-child {
+      text-align: left;
+      font-family: var(--font-sans);
+      font-weight: 600;
+    }
+
+    .node-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-right: 7px;
+    }
+
+    .val-ok    { color: var(--green); }
+    .val-warn  { color: var(--yellow); }
+    .val-err   { color: var(--red); }
+
+    /* ══════════════════════════════════════════════════
+       DEADLINE MISSES BARS
+    ══════════════════════════════════════════════════ */
+    .miss-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .miss-label {
+      width: 80px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .miss-bar-bg {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .miss-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .miss-val {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      width: 28px;
+      text-align: right;
+    }
+
+    /* ══════════════════════════════════════════════════
+       TRAFFIC BAR CHART
+    ══════════════════════════════════════════════════ */
+    .traffic-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .traffic-dir {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-dim);
+      transition: var(--transition);
+    }
+
+    .traffic-dir.active { background: var(--green-glow); color: var(--green); }
+
+    .traffic-bar-bg {
+      flex: 1;
+      height: 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .traffic-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--sensor), #0066ff);
+      transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .traffic-bar-fill.active-fill {
+      background: linear-gradient(90deg, var(--green), #00ff88);
+    }
+
+    .traffic-count {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      width: 28px;
+      text-align: right;
+      color: var(--text-dim);
+      transition: var(--transition);
+    }
+    .traffic-count.active { color: var(--green); }
+
+    /* ══════════════════════════════════════════════════
+       DECISION LOG
+    ══════════════════════════════════════════════════ */
+    .panel-log {
+      grid-column: 1 / -1;
+    }
+
+    .log-container {
+      height: 140px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.7;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .log-container::-webkit-scrollbar { width: 4px; }
+    .log-container::-webkit-scrollbar-thumb {
+      background: var(--border2);
+      border-radius: 2px;
+    }
+
+    .log-entry {
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+      transition: background 0.2s;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .log-entry:hover { background: var(--surface2); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-6px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .log-time { color: var(--text-muted); margin-right: 8px; }
+    .log-node-sensor { color: var(--sensor); }
+    .log-node-ctrl { color: var(--controller); }
+    .log-node-act { color: var(--actuator); }
+    .log-node-sys { color: var(--text-dim); }
+    .log-msg { color: var(--text); }
+    .log-warn { color: var(--yellow); }
+    .log-err { color: var(--red); }
+
+    /* ══════════════════════════════════════════════════
+       INTERSECTION VISUALIZER
+    ══════════════════════════════════════════════════ */
+    .panel-intersection {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intersection-svg {
+      width: 100%;
+      max-width: 260px;
+      aspect-ratio: 1;
+    }
+
+    /* ══════════════════════════════════════════════════
+       CONTROL BAR
+    ══════════════════════════════════════════════════ */
+    .control-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border2);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.02em;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,100,255,0.15));
+      border-color: rgba(0,212,255,0.4);
+      color: var(--sensor);
+    }
+    .btn.primary:hover {
+      background: linear-gradient(135deg, rgba(0,212,255,0.3), rgba(0,100,255,0.25));
+      box-shadow: 0 0 20px rgba(0,212,255,0.2);
+    }
+
+    .btn.danger {
+      background: rgba(231,76,60,0.1);
+      border-color: rgba(231,76,60,0.3);
+      color: var(--red);
+    }
+
+    .speed-select {
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .speed-select:focus { border-color: var(--sensor); }
+
+    .spacer { flex: 1; }
+
+    /* ══════════════════════════════════════════════════
+       SCROLLBAR GLOBAL
+    ══════════════════════════════════════════════════ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ── HEADER ──────────────────────────────── -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-badge">🚦</div>
+      <div>
+        <h1>Smart Traffic Controller
+          <span>Système de contrôle temps-réel ROS2 — v4</span>
+        </h1>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="status-pill online" id="status-pill">
+        <div class="status-dot"></div>
+        <span id="status-label">Simulation Active</span>
+      </div>
+      <div class="time-display" id="clock">--:--:--</div>
+    </div>
+  </header>
+
+  <!-- ── CONTROL BAR ─────────────────────────── -->
+  <div class="control-bar">
+    <button class="btn primary" id="btn-toggle" onclick="toggleSimulation()">⏸ Pause</button>
+    <button class="btn" id="btn-reset" onclick="resetSimulation()">↺ Réinitialiser</button>
+    <label for="speed-select" style="font-size:0.78rem;color:var(--text-dim);font-weight:600;">Vitesse :</label>
+    <select class="speed-select" id="speed-select" onchange="setSpeed(this.value)">
+      <option value="0.5">×0.5</option>
+      <option value="1" selected>×1</option>
+      <option value="2">×2</option>
+      <option value="5">×5</option>
+    </select>
+    <div class="spacer"></div>
+    <button class="btn" onclick="exportCSV()">⬇ Export CSV</button>
+    <button class="btn danger" id="btn-emergency" onclick="emergencyStop()">🚨 Urgence</button>
+  </div>
+
+  <!-- ── KPI ROW ──────────────────────────────── -->
+  <div class="kpi-row">
+    <div class="kpi-card" style="--accent-color: var(--sensor)">
+      <div class="kpi-label">Capteur — Lat. Moy</div>
+      <div class="kpi-value" id="kpi-sensor-mean">—</div>
+      <div class="kpi-sub">ms | deadline 100 ms</div>
+      <div class="kpi-trend ok" id="kpi-sensor-trend">✓ OK</div>
+    </div>
+    <div class="kpi-card" style="--accent-color: var(--controller)">
+      <div class="kpi-label">Contrôleur — Lat. Moy</div>
+      <div class="kpi-value" id="kpi-ctrl-mean">—</div>
+      <div class="kpi-sub">ms | deadline 80 ms</div>
+      <div class="kpi-trend ok" id="kpi-ctrl-trend">✓ OK</div>
+    </div>
+    <div class="kpi-card" style="--accent-color: var(--actuator)">
+      <div class="kpi-label">Actionneur — Lat. Moy</div>
+      <div class="kpi-value" id="kpi-act-mean">—</div>
+      <div class="kpi-sub">ms | deadline 50 ms</div>
+      <div class="kpi-trend ok" id="kpi-act-trend">✓ OK</div>
+    </div>
+    <div class="kpi-card" style="--accent-color: var(--deadline)">
+      <div class="kpi-label">Deadline Misses Total</div>
+      <div class="kpi-value" id="kpi-total-miss">0</div>
+      <div class="kpi-sub">violations temps-réel</div>
+      <div class="kpi-trend ok" id="kpi-miss-trend">✓ Aucun</div>
+    </div>
+    <div class="kpi-card" style="--accent-color: var(--green)">
+      <div class="kpi-label">Direction Active</div>
+      <div class="kpi-value" id="kpi-active-dir">—</div>
+      <div class="kpi-sub" id="kpi-active-phase">Phase en cours</div>
+      <div class="kpi-trend ok" id="kpi-active-dur">0.0 s</div>
+    </div>
+    <div class="kpi-card" style="--accent-color: #a78bfa">
+      <div class="kpi-label">Décisions / Séquences</div>
+      <div class="kpi-value" id="kpi-seq">0</div>
+      <div class="kpi-sub">messages traités</div>
+      <div class="kpi-trend ok" id="kpi-seq-rate">0.0 msg/s</div>
+    </div>
+  </div>
+
+  <!-- ── MAIN GRID ─────────────────────────────── -->
+  <div class="main-grid">
+
+    <!-- LATENCY CHART -->
+    <div class="panel panel-latency">
+      <div class="panel-title">
+        <div class="panel-title-icon" style="background:rgba(0,212,255,0.15)">📈</div>
+        Latences Temps Réel
+        <span style="margin-left:auto;font-size:0.68rem;font-family:var(--font-mono);color:var(--text-muted);" id="chart-range">derniers 300 pts</span>
+      </div>
+      <canvas id="latencyChart"></canvas>
+    </div>
+
+    <!-- TRAFFIC LIGHTS -->
+    <div class="panel panel-lights">
+      <div class="panel-title">
+        <div class="panel-title-icon" style="background:rgba(46,204,113,0.15)">🚦</div>
+        Feux de Signalisation
+      </div>
+      <div class="lights-grid" id="lights-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <!-- INTERSECTION VISUAL -->
+    <div class="panel panel-intersection">
+      <div class="panel-title">
+        <div class="panel-title-icon" style="background:rgba(255,127,80,0.15)">🗺</div>
+        Intersection
+      </div>
+      <svg class="intersection-svg" viewBox="0 0 200 200" id="intersection-svg">
+        <!-- Road base -->
+        <rect x="0" y="0" width="200" height="200" fill="#0a0f1a"/>
+        <!-- Horizontal road -->
+        <rect x="0" y="80" width="200" height="40" fill="#1a2030" rx="0"/>
+        <!-- Vertical road -->
+        <rect x="80" y="0" width="40" height="200" fill="#1a2030" rx="0"/>
+        <!-- Center box -->
+        <rect x="80" y="80" width="40" height="40" fill="#222d42"/>
+        <!-- Road markings -->
+        <line x1="0" y1="100" x2="75" y2="100" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="8,6"/>
+        <line x1="125" y1="100" x2="200" y2="100" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="8,6"/>
+        <line x1="100" y1="0" x2="100" y2="75" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="8,6"/>
+        <line x1="100" y1="125" x2="100" y2="200" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="8,6"/>
+        <!-- Direction arrows -->
+        <text x="30" y="96" font-size="10" fill="#3a4460" font-family="sans-serif" font-weight="bold">▶</text>
+        <text x="150" y="96" font-size="10" fill="#3a4460" font-family="sans-serif" font-weight="bold">◀</text>
+        <text x="96" y="35" font-size="10" fill="#3a4460" font-family="sans-serif" font-weight="bold">▼</text>
+        <text x="96" y="170" font-size="10" fill="#3a4460" font-family="sans-serif" font-weight="bold">▲</text>
+        <!-- Traffic light indicators N S E O -->
+        <circle id="svg-light-N" cx="100" cy="68" r="6" fill="#3a1010"/>
+        <circle id="svg-light-S" cx="100" cy="132" r="6" fill="#3a1010"/>
+        <circle id="svg-light-E" cx="132" cy="100" r="6" fill="#3a1010"/>
+        <circle id="svg-light-O" cx="68" cy="100" r="6" fill="#3a1010"/>
+        <!-- Car indicators -->
+        <g id="cars-N" opacity="0.7"></g>
+        <g id="cars-S" opacity="0.7"></g>
+        <g id="cars-E" opacity="0.7"></g>
+        <g id="cars-O" opacity="0.7"></g>
+        <!-- Direction labels -->
+        <text x="100" y="16" text-anchor="middle" font-size="9" fill="#4a5568" font-family="sans-serif" font-weight="bold">NORD</text>
+        <text x="100" y="193" text-anchor="middle" font-size="9" fill="#4a5568" font-family="sans-serif" font-weight="bold">SUD</text>
+        <text x="6" y="103" font-size="9" fill="#4a5568" font-family="sans-serif" font-weight="bold">O</text>
+        <text x="185" y="103" font-size="9" fill="#4a5568" font-family="sans-serif" font-weight="bold">E</text>
+      </svg>
+    </div>
+
+    <!-- DEADLINE MISSES -->
+    <div class="panel">
+      <div class="panel-title">
+        <div class="panel-title-icon" style="background:rgba(255,45,85,0.15)">⚠</div>
+        Deadline Misses
+      </div>
+      <div id="miss-bars">
+        <div class="miss-item">
+          <div class="miss-label" style="color:var(--sensor)">● Capteur</div>
+          <div class="miss-bar-bg"><div class="miss-bar-fill" id="miss-bar-sensor" style="width:0%;background:var(--sensor)"></div></div>
+          <div class="miss-val" id="miss-val-sensor" style="color:var(--sensor)">0</div>
+        </div>
+        <div class="miss-item">
+          <div class="miss-label" style="color:var(--controller)">● Contrôleur</div>
+          <div class="miss-bar-bg"><div class="miss-bar-fill" id="miss-bar-ctrl" style="width:0%;background:var(--controller)"></div></div>
+          <div class="miss-val" id="miss-val-ctrl" style="color:var(--controller)">0</div>
+        </div>
+        <div class="miss-item">
+          <div class="miss-label" style="color:var(--actuator)">● Actionneur</div>
+          <div class="miss-bar-bg"><div class="miss-bar-fill" id="miss-bar-act" style="width:0%;background:var(--actuator)"></div></div>
+          <div class="miss-val" id="miss-val-act" style="color:var(--actuator)">0</div>
+        </div>
+      </div>
+
+      <div class="panel-title" style="margin-top:20px">
+        <div class="panel-title-icon" style="background:rgba(0,212,255,0.15)">📊</div>
+        Statistiques Nœuds
+      </div>
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Nœud</th>
+            <th>Moy</th>
+            <th>Max</th>
+            <th>P95</th>
+          </tr>
+        </thead>
+        <tbody id="stats-tbody">
+          <tr>
+            <td><span class="node-dot" style="background:var(--sensor)"></span>Capteur</td>
+            <td id="stat-s-mean">—</td><td id="stat-s-max">—</td><td id="stat-s-p95">—</td>
+          </tr>
+          <tr>
+            <td><span class="node-dot" style="background:var(--controller)"></span>Contrôleur</td>
+            <td id="stat-c-mean">—</td><td id="stat-c-max">—</td><td id="stat-c-p95">—</td>
+          </tr>
+          <tr>
+            <td><span class="node-dot" style="background:var(--actuator)"></span>Actionneur</td>
+            <td id="stat-a-mean">—</td><td id="stat-a-max">—</td><td id="stat-a-p95">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TRAFFIC VOLUME -->
+    <div class="panel">
+      <div class="panel-title">
+        <div class="panel-title-icon" style="background:rgba(0,212,255,0.1)">🚗</div>
+        Volume de Trafic par Direction
+      </div>
+      <div id="traffic-bars">
+        <!-- N S E O dynamically -->
+      </div>
+    </div>
+
+    <!-- DECISION LOG -->
+    <div class="panel panel-log">
+      <div class="panel-title">
+        <div class="panel-title-icon" style="background:rgba(167,139,250,0.15)">📋</div>
+        Journal des Décisions
+        <span style="margin-left:auto;font-size:0.68rem;font-family:var(--font-mono);color:var(--text-muted);" id="log-count">0 entrées</span>
+      </div>
+      <div class="log-container" id="log-container"></div>
+    </div>
+
+  </div><!-- /main-grid -->
+</div><!-- /wrapper -->
+
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT — SIMULATION ENGINE
+══════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── CONSTANTS ─────────────────────────────────── */
+const DIRECTIONS   = ['N', 'S', 'E', 'O'];
+const DIR_LABELS   = { N:'Nord', S:'Sud', E:'Est', O:'Ouest' };
+const MAX_VEHICLES = 30;
+const MAX_POINTS   = 300;
+
+const DEADLINE_SENSOR = 100;
+const DEADLINE_CTRL   = 80;
+const DEADLINE_ACT    = 50;
+
+const MIN_GREEN = 5000;   // ms
+const MAX_GREEN = 30000;  // ms
+const HYSTERESIS = 3;
+const YELLOW_TIME = 3000; // ms
+
+/* ── STATE ─────────────────────────────────────── */
+let running = true;
+let speedFactor = 1;
+let emergencyMode = false;
+let seq = 0;
+let logCount = 0;
+
+let sensorLat = [], ctrlLat = [], actLat = [];
+let missed = { sensor:0, controller:0, actuator:0 };
+let counts = { N:10, S:8, E:12, O:5 };
+let lights = { N:'RED', S:'RED', E:'RED', O:'RED' };
+let activeGreen = null;
+let greenSince = null;
+let inTransition = false;
+let transitionStart = null;
+let targetDir = null;
+let phaseStartTime = Date.now();
+
+let noiseSeed = {};
+DIRECTIONS.forEach(d => noiseSeed[d] = Math.random() * 100);
+let t0 = Date.now();
+
+let simulationInterval = null;
+let displayInterval = null;
+
+/* ── CHART SETUP ───────────────────────────────── */
+const ctxLat = document.getElementById('latencyChart').getContext('2d');
+const chartLabels = [];
+const chartSensor = [], chartCtrl = [], chartAct = [];
+
+const latencyChart = new Chart(ctxLat, {
+  type: 'line',
+  data: {
+    labels: chartLabels,
+    datasets: [
+      {
+        label: 'Capteur (dl=100ms)',
+        data: chartSensor,
+        borderColor: '#00d4ff',
+        borderWidth: 1.8,
+        backgroundColor: 'rgba(0,212,255,0.06)',
+        pointRadius: 0,
+        tension: 0.4,
+        fill: true,
+      },
+      {
+        label: 'Contrôleur (dl=80ms)',
+        data: chartCtrl,
+        borderColor: '#ff7f50',
+        borderWidth: 1.8,
+        backgroundColor: 'rgba(255,127,80,0.04)',
+        pointRadius: 0,
+        tension: 0.4,
+        fill: true,
+      },
+      {
+        label: 'Actionneur (dl=50ms)',
+        data: chartAct,
+        borderColor: '#39ff14',
+        borderWidth: 1.8,
+        backgroundColor: 'rgba(57,255,20,0.04)',
+        pointRadius: 0,
+        tension: 0.4,
+        fill: true,
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: {
+        labels: {
+          color: '#6b7a99', font: { family:"'JetBrains Mono'", size:11 },
+          boxWidth: 12, usePointStyle: true, pointStyle: 'line',
+        },
+      },
+      tooltip: {
+        backgroundColor: 'rgba(11,17,32,0.95)',
+        borderColor: 'rgba(255,255,255,0.1)',
+        borderWidth: 1,
+        titleColor: '#6b7a99',
+        bodyColor: '#e8edf5',
+        bodyFont: { family:"'JetBrains Mono'", size:12 },
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label.split(' ')[0]}: ${ctx.parsed.y?.toFixed(2) ?? '—'} ms`,
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: { color:'#3a4460', font:{size:10}, maxTicksLimit:10 },
+        grid:  { color:'rgba(255,255,255,0.04)' },
+        border: { color:'rgba(255,255,255,0.08)' },
+      },
+      y: {
+        ticks: { color:'#3a4460', font:{size:10} },
+        grid:  { color:'rgba(255,255,255,0.04)' },
+        border: { color:'rgba(255,255,255,0.08)' },
+        min: 0,
+      },
+    },
+  },
+});
+
+/* ── DEADLINE ANNOTATION LINES ─────────────────── */
+function addDeadlinePlugin() {
+  Chart.register({
+    id: 'deadlineLines',
+    afterDraw(chart) {
+      const ctx = chart.ctx;
+      const yAxis = chart.scales.y;
+      const xLeft = chart.scales.x.left;
+      const xRight = chart.scales.x.right;
+      const lines = [
+        { y: DEADLINE_SENSOR, color: 'rgba(0,212,255,0.35)', label: '100ms' },
+        { y: DEADLINE_CTRL,   color: 'rgba(255,127,80,0.35)', label: '80ms' },
+        { y: DEADLINE_ACT,    color: 'rgba(57,255,20,0.35)', label: '50ms' },
+      ];
+      lines.forEach(({ y, color, label }) => {
+        const px = yAxis.getPixelForValue(y);
+        if (px < yAxis.top || px > yAxis.bottom) return;
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(xLeft, px);
+        ctx.lineTo(xRight, px);
+        ctx.stroke();
+        ctx.fillStyle = color;
+        ctx.font = "10px 'JetBrains Mono'";
+        ctx.fillText(label, xRight - 36, px - 4);
+        ctx.restore();
+      });
+    }
+  });
+}
+addDeadlinePlugin();
+
+/* ── TRAFFIC LIGHT HTML ────────────────────────── */
+function buildLightsGrid() {
+  const grid = document.getElementById('lights-grid');
+  grid.innerHTML = '';
+  DIRECTIONS.forEach(d => {
+    grid.innerHTML += `
+      <div class="light-column">
+        <div class="dir-badge" id="badge-${d}">${d}</div>
+        <div class="light-housing" id="housing-${d}">
+          <div class="bulb red dim" id="bulb-${d}-RED"></div>
+          <div class="bulb yellow dim" id="bulb-${d}-YELLOW"></div>
+          <div class="bulb green dim" id="bulb-${d}-GREEN"></div>
+        </div>
+        <div class="dir-label">${DIR_LABELS[d]}</div>
+        <div class="dir-count" id="count-${d}">0 véh.</div>
+        <div class="dir-state-label red" id="state-label-${d}">ROUGE</div>
+      </div>`;
+  });
+}
+
+function buildTrafficBars() {
+  const el = document.getElementById('traffic-bars');
+  el.innerHTML = DIRECTIONS.map(d => `
+    <div class="traffic-item">
+      <div class="traffic-dir" id="tdir-${d}">${d}</div>
+      <div class="traffic-bar-bg">
+        <div class="traffic-bar-fill" id="tbar-${d}" style="width:0%"></div>
+      </div>
+      <div class="traffic-count" id="tcount-${d}">0</div>
+    </div>
+  `).join('');
+}
+
+buildLightsGrid();
+buildTrafficBars();
+
+/* ── TRAFFIC PATTERN ───────────────────────────── */
+function sampleTraffic() {
+  const elapsed = (Date.now() - t0) / 1000;
+  const result = {};
+  DIRECTIONS.forEach(d => {
+    const base = 10 + 8 * Math.sin(2 * Math.PI * elapsed / 30 + noiseSeed[d]);
+    const noise = (Math.random() - 0.5) * 3;
+    result[d] = Math.max(0, Math.min(MAX_VEHICLES, Math.round(base + noise)));
+  });
+  return result;
+}
+
+/* ── LATENCY SIMULATOR ─────────────────────────── */
+function simLatency(mean, stddev, deadline) {
+  // Box-Muller transform
+  const u1 = Math.random(), u2 = Math.random();
+  const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+  const val = Math.max(0.5, mean + z * stddev);
+  if (val > deadline) {
+    return { ms: val, miss: true };
+  }
+  return { ms: val, miss: false };
+}
+
+/* ── PRIORITY SCHEDULER ────────────────────────── */
+function maxDir(c) {
+  return DIRECTIONS.reduce((best, d) => c[d] > c[best] ? d : best, DIRECTIONS[0]);
+}
+
+function decide(currentCounts) {
+  const now = Date.now();
+
+  if (inTransition) {
+    if (now - transitionStart >= YELLOW_TIME / speedFactor) {
+      inTransition = false;
+      setGreen(targetDir);
+      return `END_TRANSITION → ${targetDir} VERT`;
+    }
+    return `TRANSITION_HOLD (→ ${targetDir})`;
+  }
+
+  if (!activeGreen) {
+    const best = maxDir(currentCounts);
+    setGreen(best);
+    return `INIT → ${best} (${currentCounts[best]} véh.)`;
+  }
+
+  const greenDur = (now - greenSince) / 1000;
+
+  if ((now - greenSince) >= MAX_GREEN / speedFactor) {
+    const best = maxDir(currentCounts);
+    if (best !== activeGreen) {
+      startYellow(activeGreen, best);
+      return `MAX_TIME (${greenDur.toFixed(1)}s) → ${activeGreen} JAUNE (→${best})`;
+    }
+  }
+
+  if ((now - greenSince) < MIN_GREEN / speedFactor) {
+    return `MIN_TIME_HOLD (${greenDur.toFixed(1)}s) → ${activeGreen}`;
+  }
+
+  const best = maxDir(currentCounts);
+  const diff = currentCounts[best] - currentCounts[activeGreen];
+  if (best !== activeGreen && diff >= HYSTERESIS) {
+    startYellow(activeGreen, best);
+    return `SWITCH ${activeGreen}(${currentCounts[activeGreen]})→${best}(${currentCounts[best]}) Δ=${diff} → JAUNE`;
+  }
+
+  return `HOLD ${activeGreen} (${currentCounts[activeGreen]} véh., ${greenDur.toFixed(1)}s)`;
+}
+
+function setGreen(dir) {
+  DIRECTIONS.forEach(d => lights[d] = d === dir ? 'GREEN' : 'RED');
+  activeGreen = dir;
+  greenSince  = Date.now();
+  phaseStartTime = Date.now();
+}
+
+function startYellow(dir, next) {
+  DIRECTIONS.forEach(d => lights[d] = d === dir ? 'YELLOW' : 'RED');
+  inTransition = true;
+  transitionStart = Date.now();
+  targetDir = next;
+}
+
+function allRed() {
+  DIRECTIONS.forEach(d => lights[d] = 'RED');
+  activeGreen = null;
+}
+
+/* ── SIMULATION TICK ───────────────────────────── */
+let lastTickTime = Date.now();
+let msgRate = 0;
+let msgRateCounter = 0;
+let lastRateTime = Date.now();
+
+function tick() {
+  if (!running || emergencyMode) return;
+
+  seq++;
+  msgRateCounter++;
+  const now = Date.now();
+  if (now - lastRateTime >= 1000) {
+    msgRate = msgRateCounter;
+    msgRateCounter = 0;
+    lastRateTime = now;
+  }
+
+  // Sample traffic
+  counts = sampleTraffic();
+
+  // Sensor latency
+  const sLat = simLatency(3.2, 1.1, DEADLINE_SENSOR);
+  sensorLat.push(sLat.ms);
+  if (sensorLat.length > MAX_POINTS) sensorLat.shift();
+  if (sLat.miss) {
+    missed.sensor++;
+    addLog('sensor', `⚠ DEADLINE MISS #${missed.sensor} — lat=${sLat.ms.toFixed(2)}ms`, 'warn');
+  }
+
+  // Controller decision
+  const reason = decide(counts);
+  const cLat = simLatency(5.8, 2.3, DEADLINE_CTRL);
+  ctrlLat.push(cLat.ms);
+  if (ctrlLat.length > MAX_POINTS) ctrlLat.shift();
+  if (cLat.miss) {
+    missed.controller++;
+    addLog('controller', `⚠ DEADLINE MISS #${missed.controller} — lat=${cLat.ms.toFixed(2)}ms`, 'warn');
+  }
+
+  // Actuator
+  const aLat = simLatency(4.1, 1.8, DEADLINE_ACT);
+  actLat.push(aLat.ms);
+  if (actLat.length > MAX_POINTS) actLat.shift();
+  if (aLat.miss) {
+    missed.actuator++;
+    addLog('actuator', `⚠ DEADLINE MISS #${missed.actuator} — lat=${aLat.ms.toFixed(2)}ms`, 'warn');
+  }
+
+  // Log decision every 10 seq
+  if (seq % 10 === 0) {
+    addLog('controller', reason, 'msg');
+  }
+
+  // Update chart data
+  if (seq % 3 === 0) {
+    chartLabels.push(seq);
+    chartSensor.push(sLat.ms);
+    chartCtrl.push(cLat.ms);
+    chartAct.push(aLat.ms);
+    if (chartLabels.length > MAX_POINTS) {
+      chartLabels.shift(); chartSensor.shift(); chartCtrl.shift(); chartAct.shift();
+    }
+  }
+}
+
+/* ── ADD LOG ENTRY ─────────────────────────────── */
+function addLog(node, msg, type) {
+  logCount++;
+  const container = document.getElementById('log-container');
+  const t = new Date().toLocaleTimeString('fr-FR', { hour12:false });
+
+  const nodeClass = { sensor:'log-node-sensor', controller:'log-node-ctrl', actuator:'log-node-act', sys:'log-node-sys' }[node] || 'log-node-sys';
+  const msgClass  = type === 'warn' ? 'log-warn' : type === 'err' ? 'log-err' : 'log-msg';
+  const nodeLabel = { sensor:'SENSOR', controller:'CTRL', actuator:'ACT', sys:'SYS' }[node] || node.toUpperCase();
+
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = `<span class="log-time">${t}</span><span class="${nodeClass}">[${nodeLabel}]</span> <span class="${msgClass}">${msg}</span>`;
+
+  container.insertBefore(entry, container.firstChild);
+  if (container.children.length > 120) container.lastChild.remove();
+  document.getElementById('log-count').textContent = `${logCount} entrées`;
+}
+
+/* ── UTILS ─────────────────────────────────────── */
+function mean(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+function p95(arr)  { if (!arr.length) return 0; const s=[...arr].sort((a,b)=>a-b); return s[Math.floor(0.95*s.length)]; }
+function fmtMs(v)  { return v.toFixed(1); }
+
+/* ── UPDATE DOM ────────────────────────────────── */
+function updateDOM() {
+  // Clock
+  document.getElementById('clock').textContent =
+    new Date().toLocaleTimeString('fr-FR', { hour12:false });
+
+  // KPIs
+  const smean = mean(sensorLat), cmean = mean(ctrlLat), amean = mean(actLat);
+  document.getElementById('kpi-sensor-mean').textContent = fmtMs(smean);
+  document.getElementById('kpi-ctrl-mean').textContent   = fmtMs(cmean);
+  document.getElementById('kpi-act-mean').textContent    = fmtMs(amean);
+
+  const trendEl = (id, val, dl) => {
+    const el = document.getElementById(id);
+    if (val < dl * 0.7)      { el.className='kpi-trend ok';   el.textContent='✓ OK'; }
+    else if (val < dl * 0.9) { el.className='kpi-trend warn'; el.textContent='⚠ Élevé'; }
+    else                      { el.className='kpi-trend err';  el.textContent='✕ Critique'; }
+  };
+  trendEl('kpi-sensor-trend', smean, DEADLINE_SENSOR);
+  trendEl('kpi-ctrl-trend',   cmean, DEADLINE_CTRL);
+  trendEl('kpi-act-trend',    amean, DEADLINE_ACT);
+
+  const totalMiss = missed.sensor + missed.controller + missed.actuator;
+  document.getElementById('kpi-total-miss').textContent = totalMiss;
+  const missEl = document.getElementById('kpi-miss-trend');
+  if (totalMiss === 0)     { missEl.className='kpi-trend ok';   missEl.textContent='✓ Aucun'; }
+  else if (totalMiss < 5)  { missEl.className='kpi-trend warn'; missEl.textContent=`⚠ ${totalMiss} total`; }
+  else                      { missEl.className='kpi-trend err';  missEl.textContent=`✕ ${totalMiss} total`; }
+
+  const dirLabel = { N:'Nord', S:'Sud', E:'Est', O:'Ouest' };
+  const activeDirEl = document.getElementById('kpi-active-dir');
+  const activePhaseEl = document.getElementById('kpi-active-phase');
+  const activeDurEl = document.getElementById('kpi-active-dur');
+
+  if (emergencyMode) {
+    activeDirEl.textContent = '🚨';
+    activePhaseEl.textContent = 'MODE URGENCE';
+    activeDurEl.textContent = '';
+    activeDurEl.className = 'kpi-trend err';
+  } else if (inTransition) {
+    activeDirEl.textContent = '🟡';
+    activePhaseEl.textContent = `Transition → ${targetDir ? dirLabel[targetDir] : '?'}`;
+    activeDurEl.textContent = '';
+  } else if (activeGreen) {
+    activeDirEl.textContent = dirLabel[activeGreen] || activeGreen;
+    activePhaseEl.textContent = 'Phase VERTE active';
+    const dur = ((Date.now() - phaseStartTime)/1000).toFixed(1);
+    activeDurEl.textContent = `⏱ ${dur}s`;
+    activeDurEl.className = 'kpi-trend ok';
+  } else {
+    activeDirEl.textContent = '—';
+    activePhaseEl.textContent = 'Tous rouges';
+    activeDurEl.textContent = '';
+  }
+
+  document.getElementById('kpi-seq').textContent = seq;
+  document.getElementById('kpi-seq-rate').textContent = `${msgRate} msg/s`;
+
+  // Stats table
+  const statFmt = (arr, id_mean, id_max, id_p95, deadline) => {
+    const m = mean(arr), mx = arr.length ? Math.max(...arr) : 0, p = p95(arr);
+    const color = v => v < deadline * 0.7 ? 'val-ok' : v < deadline * 0.95 ? 'val-warn' : 'val-err';
+    document.getElementById(id_mean).className = color(m);
+    document.getElementById(id_mean).textContent = fmtMs(m) + ' ms';
+    document.getElementById(id_max).className = color(mx);
+    document.getElementById(id_max).textContent = fmtMs(mx) + ' ms';
+    document.getElementById(id_p95).className = color(p);
+    document.getElementById(id_p95).textContent = fmtMs(p) + ' ms';
+  };
+  statFmt(sensorLat, 'stat-s-mean', 'stat-s-max', 'stat-s-p95', DEADLINE_SENSOR);
+  statFmt(ctrlLat,   'stat-c-mean', 'stat-c-max', 'stat-c-p95', DEADLINE_CTRL);
+  statFmt(actLat,    'stat-a-mean', 'stat-a-max', 'stat-a-p95', DEADLINE_ACT);
+
+  // Deadline misses bars
+  const maxMiss = Math.max(missed.sensor, missed.controller, missed.actuator, 1);
+  const updateMissBar = (id_bar, id_val, v) => {
+    document.getElementById(id_bar).style.width = (v / maxMiss * 100) + '%';
+    document.getElementById(id_val).textContent = v;
+  };
+  updateMissBar('miss-bar-sensor', 'miss-val-sensor', missed.sensor);
+  updateMissBar('miss-bar-ctrl',   'miss-val-ctrl',   missed.controller);
+  updateMissBar('miss-bar-act',    'miss-val-act',     missed.actuator);
+
+  // Traffic bars
+  const maxCount = Math.max(...Object.values(counts), 1);
+  DIRECTIONS.forEach(d => {
+    const v = counts[d] || 0;
+    const isActive = d === activeGreen && lights[d] === 'GREEN';
+    document.getElementById(`tbar-${d}`).style.width = (v / maxCount * 100) + '%';
+    document.getElementById(`tbar-${d}`).className = 'traffic-bar-fill' + (isActive ? ' active-fill' : '');
+    document.getElementById(`tcount-${d}`).textContent = v;
+    document.getElementById(`tcount-${d}`).className = 'traffic-count' + (isActive ? ' active' : '');
+    document.getElementById(`tdir-${d}`).className = 'traffic-dir' + (isActive ? ' active' : '');
+  });
+
+  // Traffic lights + SVG
+  DIRECTIONS.forEach(d => {
+    const state = lights[d] || 'RED';
+    const housing = document.getElementById(`housing-${d}`);
+    housing.className = 'light-housing' +
+      (state === 'GREEN'  ? ' active-green'  : '') +
+      (state === 'YELLOW' ? ' active-yellow' : '');
+
+    ['RED','YELLOW','GREEN'].forEach(s => {
+      const bulb = document.getElementById(`bulb-${d}-${s}`);
+      const isOn = state === s;
+      bulb.className = 'bulb ' + s.toLowerCase() +
+        (isOn ? (s === 'YELLOW' ? ' blink' : '') : ' dim');
+    });
+
+    const badge = document.getElementById(`badge-${d}`);
+    badge.className = 'dir-badge' + (state !== 'RED' ? ' active' : '');
+
+    const cntEl = document.getElementById(`count-${d}`);
+    cntEl.textContent = `${counts[d] || 0} véh.`;
+    cntEl.className = 'dir-count' + (state === 'GREEN' ? ' active' : '');
+
+    const stateLabel = document.getElementById(`state-label-${d}`);
+    const stateMap = { GREEN:'VERT', YELLOW:'JAUNE', RED:'ROUGE' };
+    stateLabel.textContent = stateMap[state];
+    stateLabel.className = 'dir-state-label ' + state.toLowerCase();
+
+    // SVG lights
+    const svgLight = document.getElementById(`svg-light-${d}`);
+    const svgColors = { GREEN:'#2ecc71', YELLOW:'#f39c12', RED:'#e74c3c' };
+    const svgGlow = { GREEN:'drop-shadow(0 0 6px #2ecc71)', YELLOW:'drop-shadow(0 0 6px #f39c12)', RED:'drop-shadow(0 0 3px #e74c3c)' };
+    if (svgLight) {
+      svgLight.style.fill = svgColors[state];
+      svgLight.style.filter = svgGlow[state];
+    }
+  });
+
+  // Update chart
+  latencyChart.update('none');
+}
+
+/* ── CONTROLS ──────────────────────────────────── */
+function toggleSimulation() {
+  running = !running;
+  const btn = document.getElementById('btn-toggle');
+  const pill = document.getElementById('status-pill');
+  const label = document.getElementById('status-label');
+  if (running) {
+    btn.innerHTML = '⏸ Pause';
+    pill.className = 'status-pill online';
+    label.textContent = 'Simulation Active';
+    addLog('sys', 'Simulation reprise', 'msg');
+  } else {
+    btn.innerHTML = '▶ Reprendre';
+    pill.className = 'status-pill';
+    pill.style.background = 'rgba(255,255,255,0.05)';
+    pill.style.borderColor = 'rgba(255,255,255,0.1)';
+    pill.style.color = 'var(--text-dim)';
+    label.textContent = 'En Pause';
+    addLog('sys', 'Simulation en pause', 'msg');
+  }
+}
+
+function resetSimulation() {
+  seq = 0; logCount = 0;
+  sensorLat = []; ctrlLat = []; actLat = [];
+  missed = { sensor:0, controller:0, actuator:0 };
+  counts = { N:10, S:8, E:12, O:5 };
+  lights = { N:'RED', S:'RED', E:'RED', O:'RED' };
+  activeGreen = null; greenSince = null;
+  inTransition = false; transitionStart = null; targetDir = null;
+  chartLabels.length=0; chartSensor.length=0; chartCtrl.length=0; chartAct.length=0;
+  document.getElementById('log-container').innerHTML = '';
+  t0 = Date.now();
+  running = true;
+  emergencyMode = false;
+  document.getElementById('btn-toggle').innerHTML = '⏸ Pause';
+  document.getElementById('btn-emergency').style.opacity = '1';
+  addLog('sys', '✓ Système réinitialisé', 'msg');
+}
+
+function setSpeed(val) {
+  speedFactor = parseFloat(val);
+  clearInterval(simulationInterval);
+  simulationInterval = setInterval(tick, Math.round(100 / speedFactor));
+  addLog('sys', `Vitesse de simulation: ×${speedFactor}`, 'msg');
+}
+
+function emergencyStop() {
+  emergencyMode = !emergencyMode;
+  const btn = document.getElementById('btn-emergency');
+  if (emergencyMode) {
+    allRed();
+    btn.style.opacity = '0.6';
+    addLog('sys', '🚨 MODE URGENCE — Tous feux ROUGES', 'err');
+  } else {
+    btn.style.opacity = '1';
+    addLog('sys', '✓ Urgence levée — Reprise normale', 'msg');
+  }
+}
+
+function exportCSV() {
+  const rows = [['seq','node','latency_ms']];
+  const maxLen = Math.max(sensorLat.length, ctrlLat.length, actLat.length);
+  for (let i = 0; i < maxLen; i++) {
+    if (sensorLat[i] !== undefined) rows.push([i, 'sensor', sensorLat[i].toFixed(3)]);
+    if (ctrlLat[i]   !== undefined) rows.push([i, 'controller', ctrlLat[i].toFixed(3)]);
+    if (actLat[i]    !== undefined) rows.push([i, 'actuator', actLat[i].toFixed(3)]);
+  }
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `smart_traffic_latencies_${Date.now()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  addLog('sys', `Export CSV téléchargé (${rows.length-1} lignes)`, 'msg');
+}
+
+/* ── INIT ──────────────────────────────────────── */
+addLog('sys', '🚦 Smart Traffic Controller Dashboard démarré', 'msg');
+addLog('sys', 'Simulation ROS2 initialisée — Nœuds: capteur, contrôleur, actionneur', 'msg');
+addLog('sensor', 'SensorNode démarré — période=100ms | deadline=100ms', 'msg');
+addLog('controller', 'ControllerNode démarré — deadline=80ms | hysteresis=3 véh.', 'msg');
+addLog('actuator', 'ActuatorNode démarré — deadline=50ms', 'msg');
+
+simulationInterval = setInterval(tick, 100);
+displayInterval    = setInterval(updateDOM, 200);
+</script>
+</body>
+</html>

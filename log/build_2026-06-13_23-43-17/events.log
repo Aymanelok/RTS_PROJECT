@@ -1,0 +1,210 @@
+[0.000000] (-) TimerEvent: {}
+[0.000434] (smart_traffic) JobQueued: {'identifier': 'smart_traffic', 'dependencies': OrderedDict()}
+[0.007260] (smart_traffic) JobStarted: {'identifier': 'smart_traffic'}
+[0.106997] (-) TimerEvent: {}
+[0.212823] (-) TimerEvent: {}
+[0.322406] (-) TimerEvent: {}
+[0.432026] (-) TimerEvent: {}
+[0.542829] (-) TimerEvent: {}
+[0.653722] (-) TimerEvent: {}
+[0.755393] (-) TimerEvent: {}
+[0.863813] (-) TimerEvent: {}
+[0.974303] (-) TimerEvent: {}
+[1.082718] (-) TimerEvent: {}
+[1.191603] (-) TimerEvent: {}
+[1.298262] (-) TimerEvent: {}
+[1.406235] (-) TimerEvent: {}
+[1.516872] (-) TimerEvent: {}
+[1.626504] (-) TimerEvent: {}
+[1.730892] (-) TimerEvent: {}
+[1.838882] (-) TimerEvent: {}
+[1.948804] (-) TimerEvent: {}
+[2.057927] (-) TimerEvent: {}
+[2.166767] (-) TimerEvent: {}
+[2.277338] (-) TimerEvent: {}
+[2.388230] (-) TimerEvent: {}
+[2.498149] (-) TimerEvent: {}
+[2.606634] (-) TimerEvent: {}
+[2.716967] (-) TimerEvent: {}
+[2.825536] (-) TimerEvent: {}
+[2.926867] (-) TimerEvent: {}
+[3.035771] (-) TimerEvent: {}
+[3.145966] (-) TimerEvent: {}
+[3.253526] (-) TimerEvent: {}
+[3.363062] (-) TimerEvent: {}
+[3.472555] (-) TimerEvent: {}
+[3.582697] (-) TimerEvent: {}
+[3.692213] (-) TimerEvent: {}
+[3.792840] (-) TimerEvent: {}
+[3.893519] (-) TimerEvent: {}
+[4.003317] (-) TimerEvent: {}
+[4.114763] (-) TimerEvent: {}
+[4.222486] (-) TimerEvent: {}
+[4.330801] (-) TimerEvent: {}
+[4.439401] (-) TimerEvent: {}
+[4.551120] (-) TimerEvent: {}
+[4.660096] (-) TimerEvent: {}
+[4.764990] (-) TimerEvent: {}
+[4.873908] (-) TimerEvent: {}
+[4.984985] (-) TimerEvent: {}
+[5.090998] (-) TimerEvent: {}
+[5.201163] (-) TimerEvent: {}
+[5.307203] (-) TimerEvent: {}
+[5.416534] (-) TimerEvent: {}
+[5.525006] (-) TimerEvent: {}
+[5.635102] (-) TimerEvent: {}
+[5.744247] (-) TimerEvent: {}
+[5.854294] (-) TimerEvent: {}
+[5.962922] (-) TimerEvent: {}
+[6.071118] (-) TimerEvent: {}
+[6.182461] (-) TimerEvent: {}
+[6.297571] (-) TimerEvent: {}
+[6.406843] (-) TimerEvent: {}
+[6.518747] (-) TimerEvent: {}
+[6.628286] (-) TimerEvent: {}
+[6.737384] (-) TimerEvent: {}
+[6.846155] (-) TimerEvent: {}
+[6.947609] (-) TimerEvent: {}
+[7.056035] (-) TimerEvent: {}
+[7.167223] (-) TimerEvent: {}
+[7.276748] (-) TimerEvent: {}
+[7.379673] (-) TimerEvent: {}
+[7.489390] (-) TimerEvent: {}
+[7.603535] (-) TimerEvent: {}
+[7.706727] (-) TimerEvent: {}
+[7.814932] (-) TimerEvent: {}
+[7.924397] (-) TimerEvent: {}
+[8.025405] (-) TimerEvent: {}
+[8.134611] (-) TimerEvent: {}
+[8.244365] (-) TimerEvent: {}
+[8.353232] (-) TimerEvent: {}
+[8.461535] (-) TimerEvent: {}
+[8.569276] (-) TimerEvent: {}
+[8.679607] (-) TimerEvent: {}
+[8.784066] (-) TimerEvent: {}
+[8.887747] (-) TimerEvent: {}
+[8.993061] (-) TimerEvent: {}
+[9.101890] (-) TimerEvent: {}
+[9.211581] (-) TimerEvent: {}
+[9.313310] (-) TimerEvent: {}
+[9.422481] (-) TimerEvent: {}
+[9.531350] (-) TimerEvent: {}
+[9.632496] (-) TimerEvent: {}
+[9.736897] (-) TimerEvent: {}
+[9.846989] (-) TimerEvent: {}
+[9.955907] (-) TimerEvent: {}
+[10.065091] (-) TimerEvent: {}
+[10.166344] (-) TimerEvent: {}
+[10.280343] (-) TimerEvent: {}
+[10.383736] (-) TimerEvent: {}
+[10.494671] (-) TimerEvent: {}
+[10.603592] (-) TimerEvent: {}
+[10.713766] (-) TimerEvent: {}
+[10.822435] (-) TimerEvent: {}
+[10.933128] (-) TimerEvent: {}
+[11.043089] (-) TimerEvent: {}
+[11.154689] (-) TimerEvent: {}
+[11.256627] (-) TimerEvent: {}
+[11.366668] (-) TimerEvent: {}
+[11.473276] (-) TimerEvent: {}
+[11.574156] (-) TimerEvent: {}
+[11.683458] (-) TimerEvent: {}
+[11.792380] (-) TimerEvent: {}
+[11.906295] (-) TimerEvent: {}
+[12.016673] (-) TimerEvent: {}
+[12.126241] (-) TimerEvent: {}
+[12.127990] (smart_traffic) Command: {'cmd': ['C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', 'build\\smart_traffic', 'build', '--build-base', 'C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build', 'install', '--record', 'C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\install.log', '--single-version-externally-managed', 'install_data'], 'cwd': 'C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr', 'env': {'SESSIONNAME': 'Console', 'ProgramFiles(x86)': 'C:\\Program Files (x86)', 'AGY_BROWSER_ACTIVE_PORT_FILE': 'C:\\Users\\User\\AppData\\Roaming\\Antigravity\\DevToolsActivePort', 'windir': 'C:\\WINDOWS', 'PROCESSOR_IDENTIFIER': 'Intel64 Family 6 Model 142 Stepping 12, GenuineIntel', 'TMP': 'C:\\Users\\User\\AppData\\Local\\Temp', 'PROCESSOR_ARCHITECTURE': 'AMD64', 'PATHEXT': '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL', 'php-8.2.16': 'C:\\php-8.2.16', 'USERPROFILE': 'C:\\Users\\User', 'USERDOMAIN': 'DESKTOP-UN3EKUI', 'PROCESSOR_REVISION': '8e0c', 'ANTIGRAVITY_SOURCE_METADATA': '{"tool":{"conversationId":"8d8c8c52-1f6f-4030-b9ef-c3eebcc326c2", "stepIndex":91, "toolCall":{"id":"klebvlhj", "name":"run_command", "argumentsJson":"{\\"CommandLine\\":\\"colcon build\\",\\"Cwd\\":\\"c:\\\\\\\\Users\\\\\\\\User\\\\\\\\Downloads\\\\\\\\v4smartcontr (2) (1)\\\\\\\\v4smartcontr\\\\\\\\v4smartcontr\\",\\"WaitMsBeforeAsync\\":2000,\\"toolAction\\":\\"Building the package\\",\\"toolSummary\\":\\"Build package\\"}", "thinkingSignature":"EpoJCpcJAQw51sdHqtC/t+ltMJVXEBKQpBhj3HCZTh9W5WCKyUuf2tJu791bkTZK4Ayraxi0oF8eRp2xH7MmRh/+AqsAdJK33ZwBrg8CtYSHF387gir2Y64pHw3NEPX/e7ms7lp4Ydnzz8LJlxaZSMp/g10rxXdnLXVqTXtQSzFQUDl7iS2dcO3NdEIsERaxrI9TcZQ7Ha0tEczTpNxzj2oNTPzWkqEDo/hyKhZ20K+QOl9M7FGSwYmaYpcSQFfTxPugp8GtFJbpVcYaY9w1Kv24ugrA+QL2mYp7ff0UGjf+8Uh3y0oJviVN6pSANvfq+epFG+5a2YTxHppSWc/9TKFOq9wxGjFT/7tbiRWl5QhvRyzB+nXugignQB4qs69OhpVB2+v2Fk9H70tezoRPs54N8kA5iaNMYL8kAcFF6CiIUkLRQR4grwPuQv3yT5nRuf6GZGHBK+rhxiYh9Jo1eDU/kXtlmUNgZhRlAG4lnAv6FueaL/sqRtYTsGK6VsWES8fGPN86vqTn9YvGOlq2/eeJPJwlLRS7oxD1pxBOVg/xYlx5zkIj+9Nsgi5lBjZpBpSt2smta/iDII7AyiB1t/Cabx9mGIYUuhl1uR1O6BtfNI6edToz9MMspMOmvlQT4ifJhZ2o8OdcSoqyUjPnxBmI7mwBdqRo7RCzeHsHMUJ6Sr5JftUbHZ0TqM7mrZBwPFhZz30JI3sAHvbGQSgFqIxcTTYCJWHkVvQg/F5xx8PVlbUEdSJySdPa91npZif1qHP69/BJ5V1e2hl8Sws7Ds6sI0OESBOBcu3vNcm1/aW81ChGTOcxyaElkDDdkClpkpQU9ilDIJZW7m9vofjbenUqIvIR+VXg9nPSFrmwCvOiX2MH3a+EzyxI8X7P+zH4hvtuY6ENy2K7ViTqNdcZFehycO0rpevQb90bGLWYKlRruRNuU9YuMkioB6pUxIcjIsWgHG1haNzTSNHmqneAjCuOQ8svXl92q6of/HCmyFFpzPHWIBSVxs80hPYMEwTzDwIWdS3Eek14l1Nml/Oec9uBaDGNR/WFb2EqFlFUDtDnmBHKba5Chv2ckHPN5L5dUWtY/SF80k8J/6ZKLFmWtqD4k+fennAGaaflRa/6mfnRjuGTT6DT9OSl2WVuiErpWCyY43ZSwWvy+YEu3Vwqe8sst358hdQVuRbZCj9WtafDsoJUYql2go3nP06N18kML8MMB6+XkrZ9sifbq49pee1D+u5feCVhXiUniC4bmVlWBA70k451txz4ioMDLkucfoWdynUI8abrU1E6vkt8+8v17vnTvK5EF8MsI+fD3giMMKotASazmvVsJdsg0+XT86lPnJL2Vm35LtOR1niQ/AnH17bUeLDxQw2hzgxLjNlzhYtVmhNKOODJETaxPnBvXkUWc4XcmjY+CxZupK3qNSSKnUc1lYlIIky8F1vBnsSKaloElnyzs7QgSS3d58VFUDHqR+TffLmSEO4PXPzcTGwbdCzhkuEIrEDDFzRsQquDO6NHJIpxKHPCPxiZcoBZN/b2IY90ilxHwAJK+D7xxpwSBg/yI+pUD8pcrug=", "originalName":"run_command"}}}', 'TEMP': 'C:\\Users\\User\\AppData\\Local\\Temp', 'FPS_BROWSER_APP_PROFILE_STRING': 'Internet Explorer', 'FPS_BROWSER_USER_PROFILE_STRING': 'Default', 'LOGONSERVER': '\\\\DESKTOP-UN3EKUI', 'EFC_8032_4126798990': '1', 'USERNAME': 'User', 'ANTIGRAVITY_PROJECT_ID': '728fb36b-7248-4233-993b-405a56406f50', 'EFC_8032_1262719628': '1', 'AGY_BROWSER_WS_URL': 'ws://127.0.0.1:59355/devtools/browser/4c947dbe-8659-4921-8d2b-cb7212261463', 'QtMsBuild': 'C:\\Users\\User\\AppData\\Local\\QtMsBuild', 'PATH': 'C:/Users/User/.gemini/antigravity/bin;C:\\Users\\User\\AppData\\Roaming\\Antigravity\\bin;C:\\Program Files\\Common Files\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\xampp1\\htdocs;C:\\Program Files\\Git\\cmd;C:\\xampa\\php-8.3.7;C:\\wamp64\\bin\\php\\php8.3.6;C:\\Program Files\\nodejs\\;c:\\Users\\User\\AppData\\Local\\Programs\\cursor\\resources\\app\\codeBin;C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\User\\.local\\bin;C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Launcher\\;C:\\Users\\User\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\php-8.3.7;C:\\xampa\\php-8.3.7;C:\\xampp\\php-8.3.7;C:\\xampp1\\php-8.3.7;C:\\Program Files (x86)\\composer;C:\\Users\\User\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\User\\AppData\\Local\\Programs\\Antigravity\\bin;C:\\Users\\User\\AppData\\Roaming\\npm;C:\\Users\\User\\AppData\\Local\\Programs\\Ollama;C:\\Users\\User\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin', 'OneDrive': 'C:\\Users\\User\\OneDrive', 'ALLUSERSPROFILE': 'C:\\ProgramData', 'CommonProgramFiles': 'C:\\Program Files\\Common Files', 'ANTIGRAVITY_TRAJECTORY_ID': 'c7b4e579-c645-49a5-8cba-d4d978cb93b0', 'JAVA_HOME': 'C:\\Users\\User\\Downloads\\OpenJDK17U-jdk_x64_windows_hotspot_17.0.14_7.zip\\jdk-17.0.14+7', 'ProgramW6432': 'C:\\Program Files', 'ProgramData': 'C:\\ProgramData', 'HOMEPATH': '\\Users\\User', 'COLCON': '1', 'COMPUTERNAME': 'DESKTOP-UN3EKUI', 'ANTIGRAVITY_AGENT': '1', 'CommonProgramW6432': 'C:\\Program Files\\Common Files', 'EFC_8032_3789132940': '1', 'DriverData': 'C:\\Windows\\System32\\Drivers\\DriverData', 'HOMEDRIVE': 'C:', 'EFC_8032_2283032206': '1', 'SystemRoot': 'C:\\WINDOWS', 'SystemDrive': 'C:', 'NUMBER_OF_PROCESSORS': '8', 'OS': 'Windows_NT', 'ZES_ENABLE_SYSMAN': '1', 'ProgramFiles': 'C:\\Program Files', 'ComSpec': 'C:\\WINDOWS\\system32\\cmd.exe', 'USERDOMAIN_ROAMINGPROFILE': 'DESKTOP-UN3EKUI', 'CHROME_DEVTOOLS_MCP_JS': 'C:\\Users\\User\\AppData\\Local\\Programs\\Antigravity\\resources\\app.asar.unpacked\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js', 'EFC_8032_1592913036': '1', 'PSModulePath': 'C:\\Users\\User\\OneDrive\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules', 'ANTIGRAVITY_CSRF_TOKEN': '310e186d-6fd9-4803-ab9a-6b1da8c3737c', 'ANTIGRAVITY_LS_ADDRESS': 'localhost:59357', 'APPDATA': 'C:\\Users\\User\\AppData\\Roaming', 'php-8.3.7': 'C:\\php-8.3.7', 'PROCESSOR_LEVEL': '6', 'LOCALAPPDATA': 'C:\\Users\\User\\AppData\\Local', 'CommonProgramFiles(x86)': 'C:\\Program Files (x86)\\Common Files', 'PUBLIC': 'C:\\Users\\Public', 'PYTHONPATH': 'C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\prefix_override;C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\colcon_core\\task\\python\\colcon_distutils_commands;C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages;'}, 'shell': False}
+[12.236425] (-) TimerEvent: {}
+[12.347214] (-) TimerEvent: {}
+[12.455807] (-) TimerEvent: {}
+[12.560499] (-) TimerEvent: {}
+[12.661730] (-) TimerEvent: {}
+[12.772034] (-) TimerEvent: {}
+[12.879280] (-) TimerEvent: {}
+[12.979792] (smart_traffic) StderrLine: {'line': b"C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_distutils\\dist.py:287: UserWarning: Unknown distribution option: 'tests_require'\r\n"}
+[12.980350] (-) TimerEvent: {}
+[12.980405] (smart_traffic) StderrLine: {'line': b'  warnings.warn(msg)\r\n'}
+[13.083203] (-) TimerEvent: {}
+[13.193527] (-) TimerEvent: {}
+[13.304622] (-) TimerEvent: {}
+[13.414708] (-) TimerEvent: {}
+[13.515903] (-) TimerEvent: {}
+[13.626341] (-) TimerEvent: {}
+[13.629070] (smart_traffic) StdoutLine: {'line': b'running egg_info\r\n'}
+[13.725206] (smart_traffic) StdoutLine: {'line': b'writing build\\smart_traffic\\smart_traffic.egg-info\\PKG-INFO\r\n'}
+[13.728571] (smart_traffic) StdoutLine: {'line': b'writing dependency_links to build\\smart_traffic\\smart_traffic.egg-info\\dependency_links.txt\r\n'}
+[13.729067] (-) TimerEvent: {}
+[13.729752] (smart_traffic) StdoutLine: {'line': b'writing entry points to build\\smart_traffic\\smart_traffic.egg-info\\entry_points.txt\r\n'}
+[13.730846] (smart_traffic) StdoutLine: {'line': b'writing requirements to build\\smart_traffic\\smart_traffic.egg-info\\requires.txt\r\n'}
+[13.731908] (smart_traffic) StdoutLine: {'line': b'writing top-level names to build\\smart_traffic\\smart_traffic.egg-info\\top_level.txt\r\n'}
+[13.834404] (-) TimerEvent: {}
+[13.943326] (-) TimerEvent: {}
+[13.951025] (smart_traffic) StdoutLine: {'line': b"reading manifest file 'build\\smart_traffic\\smart_traffic.egg-info\\SOURCES.txt'\r\n"}
+[13.974766] (smart_traffic) StdoutLine: {'line': b"writing manifest file 'build\\smart_traffic\\smart_traffic.egg-info\\SOURCES.txt'\r\n"}
+[13.975724] (smart_traffic) StdoutLine: {'line': b'running build\r\n'}
+[13.976028] (smart_traffic) StdoutLine: {'line': b'running build_py\r\n'}
+[13.976441] (smart_traffic) StdoutLine: {'line': b'creating C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\r\n'}
+[13.977375] (smart_traffic) StdoutLine: {'line': b'copying simulation\\intersection.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\r\n'}
+[13.997797] (smart_traffic) StdoutLine: {'line': b'copying simulation\\ros2_bridge.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\r\n'}
+[14.016888] (smart_traffic) StdoutLine: {'line': b'copying simulation\\run_simulation.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\r\n'}
+[14.021632] (smart_traffic) StdoutLine: {'line': b'copying simulation\\traffic_engine.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\r\n'}
+[14.042612] (smart_traffic) StdoutLine: {'line': b'copying simulation\\__init__.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\r\n'}
+[14.052264] (-) TimerEvent: {}
+[14.058136] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic\\actuator_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\r\n'}
+[14.078309] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic\\controller_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\r\n'}
+[14.099914] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic\\dashboard_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\r\n'}
+[14.103664] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic\\sensor_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\r\n'}
+[14.108088] (smart_traffic) StdoutLine: {'line': b'copying smart_traffic\\__init__.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\r\n'}
+[14.110722] (smart_traffic) StdoutLine: {'line': b'running install\r\n'}
+[14.112230] (smart_traffic) StdoutLine: {'line': b'running install_lib\r\n'}
+[14.162498] (-) TimerEvent: {}
+[14.220106] (smart_traffic) StdoutLine: {'line': b'creating C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\r\n'}
+[14.221239] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\\intersection.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\r\n'}
+[14.242795] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\\ros2_bridge.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\r\n'}
+[14.245936] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\\run_simulation.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\r\n'}
+[14.249549] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\\traffic_engine.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\r\n'}
+[14.265560] (-) TimerEvent: {}
+[14.270437] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\simulation\\__init__.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\r\n'}
+[14.274810] (smart_traffic) StdoutLine: {'line': b'creating C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\r\n'}
+[14.275813] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\\actuator_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\r\n'}
+[14.297548] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\\controller_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\r\n'}
+[14.315444] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\\dashboard_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\r\n'}
+[14.330741] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\\sensor_node.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\r\n'}
+[14.334734] (smart_traffic) StdoutLine: {'line': b'copying C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\build\\lib\\smart_traffic\\__init__.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\r\n'}
+[14.339571] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\\intersection.py to intersection.cpython-313.pyc\r\n'}
+[14.370801] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\\ros2_bridge.py to ros2_bridge.cpython-313.pyc\r\n'}
+[14.371312] (-) TimerEvent: {}
+[14.378711] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\\run_simulation.py to run_simulation.cpython-313.pyc\r\n'}
+[14.387073] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\\traffic_engine.py to traffic_engine.cpython-313.pyc\r\n'}
+[14.412005] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\simulation\\__init__.py to __init__.cpython-313.pyc\r\n'}
+[14.418377] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\\actuator_node.py to actuator_node.cpython-313.pyc\r\n'}
+[14.448210] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\\controller_node.py to controller_node.cpython-313.pyc\r\n'}
+[14.480966] (-) TimerEvent: {}
+[14.481651] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\\dashboard_node.py to dashboard_node.cpython-313.pyc\r\n'}
+[14.535993] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\\sensor_node.py to sensor_node.cpython-313.pyc\r\n'}
+[14.544450] (smart_traffic) StdoutLine: {'line': b'byte-compiling C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic\\__init__.py to __init__.cpython-313.pyc\r\n'}
+[14.547922] (smart_traffic) StdoutLine: {'line': b'running install_data\r\n'}
+[14.549657] (smart_traffic) StdoutLine: {'line': b'copying resource\\smart_traffic -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\share\\ament_index\\resource_index\\packages\r\n'}
+[14.567178] (smart_traffic) StdoutLine: {'line': b'copying launch\\traffic_launch.py -> C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\share\\smart_traffic\\launch\r\n'}
+[14.572135] (smart_traffic) StdoutLine: {'line': b'running install_egg_info\r\n'}
+[14.595722] (-) TimerEvent: {}
+[14.692095] (smart_traffic) StdoutLine: {'line': b'Copying build\\smart_traffic\\smart_traffic.egg-info to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\Lib\\site-packages\\smart_traffic-1.0.0-py3.13.egg-info\r\n'}
+[14.704434] (-) TimerEvent: {}
+[14.780389] (smart_traffic) StdoutLine: {'line': b'running install_scripts\r\n'}
+[14.813476] (-) TimerEvent: {}
+[14.924724] (-) TimerEvent: {}
+[15.012420] (smart_traffic) StdoutLine: {'line': b'Installing actuator_node-script.py script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.031667] (-) TimerEvent: {}
+[15.100674] (smart_traffic) StdoutLine: {'line': b'Installing actuator_node.exe script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.104009] (smart_traffic) StdoutLine: {'line': b'Installing controller_node-script.py script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.106277] (smart_traffic) StdoutLine: {'line': b'Installing controller_node.exe script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.108378] (smart_traffic) StdoutLine: {'line': b'Installing dashboard_node-script.py script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.110823] (smart_traffic) StdoutLine: {'line': b'Installing dashboard_node.exe script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.113148] (smart_traffic) StdoutLine: {'line': b'Installing sensor_node-script.py script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.115369] (smart_traffic) StdoutLine: {'line': b'Installing sensor_node.exe script to C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\install\\smart_traffic\\lib\\smart_traffic\r\n'}
+[15.119965] (smart_traffic) StdoutLine: {'line': b"writing list of installed files to 'C:\\Users\\User\\Downloads\\v4smartcontr (2) (1)\\v4smartcontr\\v4smartcontr\\build\\smart_traffic\\install.log'\r\n"}
+[15.142909] (-) TimerEvent: {}
+[15.191665] (smart_traffic) CommandEnded: {'returncode': 0}
+[15.244922] (-) TimerEvent: {}
+[15.323620] (smart_traffic) JobEnded: {'identifier': 'smart_traffic', 'rc': 0}
+[15.327437] (-) EventReactorShutdown: {}

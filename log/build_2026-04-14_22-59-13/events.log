@@ -1,0 +1,104 @@
+[0.000000] (-) TimerEvent: {}
+[0.001459] (smart_traffic) JobQueued: {'identifier': 'smart_traffic', 'dependencies': OrderedDict()}
+[0.002051] (smart_traffic) JobStarted: {'identifier': 'smart_traffic'}
+[0.101339] (-) TimerEvent: {}
+[0.211252] (-) TimerEvent: {}
+[0.317815] (-) TimerEvent: {}
+[0.423742] (-) TimerEvent: {}
+[0.528916] (-) TimerEvent: {}
+[0.630973] (-) TimerEvent: {}
+[0.733402] (-) TimerEvent: {}
+[0.843479] (-) TimerEvent: {}
+[0.944590] (-) TimerEvent: {}
+[1.045635] (-) TimerEvent: {}
+[1.153927] (-) TimerEvent: {}
+[1.263054] (-) TimerEvent: {}
+[1.372184] (-) TimerEvent: {}
+[1.481355] (-) TimerEvent: {}
+[1.589558] (-) TimerEvent: {}
+[1.698548] (-) TimerEvent: {}
+[1.804232] (-) TimerEvent: {}
+[1.910574] (-) TimerEvent: {}
+[2.017621] (-) TimerEvent: {}
+[2.126289] (-) TimerEvent: {}
+[2.232501] (-) TimerEvent: {}
+[2.337530] (-) TimerEvent: {}
+[2.442818] (-) TimerEvent: {}
+[2.546314] (-) TimerEvent: {}
+[2.652356] (-) TimerEvent: {}
+[2.761722] (-) TimerEvent: {}
+[2.870959] (-) TimerEvent: {}
+[2.979973] (-) TimerEvent: {}
+[3.085631] (-) TimerEvent: {}
+[3.194363] (-) TimerEvent: {}
+[3.299823] (-) TimerEvent: {}
+[3.394483] (smart_traffic) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', 'build/smart_traffic', 'build', '--build-base', '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/build', 'install', '--record', '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'ayman', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/ayman', 'OLDPWD': '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'WSL_DISTRO_NAME': 'Ubuntu', 'WAYLAND_DISPLAY': 'wayland-0', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'ayman', 'NAME': 'SANTO', 'WSL_INTEROP': '/run/WSL/22576_interop', 'PULSE_SERVER': 'unix:/mnt/wslg/PulseServer', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm-256color', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/java8path:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/app/ayman/product/21c/dbhomeXE/bin:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files/MATLAB/R2024b/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/app/ayman/product/21c/dbhomeXE/bin:/mnt/c/Program Files/Tesseract-OCR/tesseract.exe:/mnt/c/Program Files/Java/jdk-25/jdk-25/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files/nodejs/:/mnt/c/Users/ayman/AppData/Local/Programs/Python/Python313/Scripts/:/mnt/c/Users/ayman/AppData/Local/Programs/Python/Python313/:/mnt/c/Users/ayman/AppData/Local/Programs/Python/Launcher/:/mnt/c/Users/ayman/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/ayman/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files/Java/jdk-25/jdk-25/bin:/mnt/c/Program Files (x86)/Nmap:/mnt/c/Users/ayman/AppData/Local/Programs/mongosh/:/mnt/c/Users/ayman/.dotnet/tools:/mnt/c/Users/ayman/AppData/Roaming/npm:/mnt/c/Users/ayman/AppData/Local/Programs/Antigravity/bin:/mnt/c/Users/ayman/AppData/Local/Programs/Ollama:/mnt/c/Users/ayman/.antigravity/extensions/ms-python.debugpy-2025.18.0-win32-x64/bundled/scripts/noConfigScripts:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000/', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'WSL2_GUI_APPS_ENABLED': '1', 'HOSTTYPE': 'x86_64', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor', 'WSLENV': ''}, 'shell': False}
+[3.420853] (-) TimerEvent: {}
+[3.528279] (-) TimerEvent: {}
+[3.634873] (-) TimerEvent: {}
+[3.744250] (-) TimerEvent: {}
+[3.847921] (-) TimerEvent: {}
+[3.956848] (-) TimerEvent: {}
+[4.058275] (-) TimerEvent: {}
+[4.167383] (-) TimerEvent: {}
+[4.276926] (-) TimerEvent: {}
+[4.382679] (-) TimerEvent: {}
+[4.491735] (-) TimerEvent: {}
+[4.595399] (-) TimerEvent: {}
+[4.701311] (-) TimerEvent: {}
+[4.801055] (smart_traffic) StdoutLine: {'line': b'running egg_info\n'}
+[4.804507] (-) TimerEvent: {}
+[4.861061] (smart_traffic) StdoutLine: {'line': b'writing build/smart_traffic/smart_traffic.egg-info/PKG-INFO\n'}
+[4.883989] (smart_traffic) StdoutLine: {'line': b'writing dependency_links to build/smart_traffic/smart_traffic.egg-info/dependency_links.txt\n'}
+[4.899442] (smart_traffic) StdoutLine: {'line': b'writing entry points to build/smart_traffic/smart_traffic.egg-info/entry_points.txt\n'}
+[4.905220] (-) TimerEvent: {}
+[4.910572] (smart_traffic) StdoutLine: {'line': b'writing requirements to build/smart_traffic/smart_traffic.egg-info/requires.txt\n'}
+[4.920557] (smart_traffic) StdoutLine: {'line': b'writing top-level names to build/smart_traffic/smart_traffic.egg-info/top_level.txt\n'}
+[5.012002] (-) TimerEvent: {}
+[5.080900] (smart_traffic) StdoutLine: {'line': b"reading manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'\n"}
+[5.113070] (-) TimerEvent: {}
+[5.221084] (-) TimerEvent: {}
+[5.261062] (smart_traffic) StdoutLine: {'line': b"writing manifest file 'build/smart_traffic/smart_traffic.egg-info/SOURCES.txt'\n"}
+[5.269306] (smart_traffic) StdoutLine: {'line': b'running build\n'}
+[5.271172] (smart_traffic) StdoutLine: {'line': b'running build_py\n'}
+[5.321873] (-) TimerEvent: {}
+[5.431071] (-) TimerEvent: {}
+[5.432564] (smart_traffic) StdoutLine: {'line': b'running install\n'}
+[5.450717] (smart_traffic) StdoutLine: {'line': b'running install_lib\n'}
+[5.538020] (-) TimerEvent: {}
+[5.644009] (-) TimerEvent: {}
+[5.745285] (-) TimerEvent: {}
+[5.853854] (-) TimerEvent: {}
+[5.905110] (smart_traffic) StdoutLine: {'line': b'running install_data\n'}
+[5.954983] (-) TimerEvent: {}
+[5.996745] (smart_traffic) StdoutLine: {'line': b'running install_egg_info\n'}
+[6.056312] (smart_traffic) StdoutLine: {'line': b"removing '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic-1.0.0-py3.12.egg-info' (and everything under it)\n"}
+[6.064372] (-) TimerEvent: {}
+[6.171742] (-) TimerEvent: {}
+[6.175958] (smart_traffic) StdoutLine: {'line': b'Copying build/smart_traffic/smart_traffic.egg-info to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/python3.12/site-packages/smart_traffic-1.0.0-py3.12.egg-info\n'}
+[6.279729] (-) TimerEvent: {}
+[6.388879] (-) TimerEvent: {}
+[6.498150] (-) TimerEvent: {}
+[6.600829] (-) TimerEvent: {}
+[6.710032] (-) TimerEvent: {}
+[6.716950] (smart_traffic) StdoutLine: {'line': b'running install_scripts\n'}
+[6.817739] (-) TimerEvent: {}
+[6.920582] (-) TimerEvent: {}
+[7.026285] (-) TimerEvent: {}
+[7.131130] (-) TimerEvent: {}
+[7.202187] (smart_traffic) StdoutLine: {'line': b'Installing actuator_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[7.229216] (smart_traffic) StdoutLine: {'line': b'Installing controller_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[7.233437] (-) TimerEvent: {}
+[7.252926] (smart_traffic) StdoutLine: {'line': b'Installing dashboard_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[7.282937] (smart_traffic) StdoutLine: {'line': b'Installing sensor_node script to /mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/install/smart_traffic/lib/smart_traffic\n'}
+[7.315784] (smart_traffic) StdoutLine: {'line': b"writing list of installed files to '/mnt/c/Users/ayman/OneDrive/Bureau/M1/v4smartcontr/v4smartcontr/build/smart_traffic/install.log'\n"}
+[7.335073] (-) TimerEvent: {}
+[7.354771] (smart_traffic) CommandEnded: {'returncode': 0}
+[7.435368] (-) TimerEvent: {}
+[7.543360] (-) TimerEvent: {}
+[7.651794] (-) TimerEvent: {}
+[7.760799] (-) TimerEvent: {}
+[7.869594] (-) TimerEvent: {}
+[7.978797] (-) TimerEvent: {}
+[8.013201] (smart_traffic) JobEnded: {'identifier': 'smart_traffic', 'rc': 0}
+[8.037961] (-) EventReactorShutdown: {}

@@ -1,0 +1,6 @@
+source;share\smart_traffic\hook\pythonpath.ps1
+source;share\smart_traffic\hook\pythonpath.bat
+source;share\smart_traffic\hook\pythonpath.dsv
+source;share\smart_traffic\hook\ament_prefix_path.ps1
+source;share\smart_traffic\hook\ament_prefix_path.bat
+source;share\smart_traffic\hook\ament_prefix_path.dsv
